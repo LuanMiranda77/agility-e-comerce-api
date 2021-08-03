@@ -9,7 +9,10 @@ import javax.persistence.Entity;
 import com.api.domain.enuns.EstadoPagamento;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import lombok.Data;
+
 @Entity
+@Data
 public class PagamentoComBoleto extends Pagamento{
 	private static final long serialVersionUID = 1L;
 	
@@ -22,26 +25,10 @@ public class PagamentoComBoleto extends Pagamento{
 	public PagamentoComBoleto() {
 	}
 
-	public PagamentoComBoleto(Integer id, EstadoPagamento estado, Pedido pedido, Date dataVencimento, Date dataPagamento) {
+	public PagamentoComBoleto(Long id, EstadoPagamento estado, Pedido pedido, Date dataVencimento, Date dataPagamento) {
 		super(id, estado, pedido);
 		this.dataPagamento = dataPagamento;
 		this.dataVenciemtno = dataVencimento;
-	}
-
-	public Date getDataVenciemtno() {
-		return dataVenciemtno;
-	}
-
-	public void setDataVenciemtno(Date dataVenciemtno) {
-		this.dataVenciemtno = dataVenciemtno;
-	}
-
-	public Date getDataPagamento() {
-		return dataPagamento;
-	}
-
-	public void setDataPagamento(Date dataPagamento) {
-		this.dataPagamento = dataPagamento;
 	}
 	
 }

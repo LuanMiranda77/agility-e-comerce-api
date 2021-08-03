@@ -1,26 +1,26 @@
 package com.api.services;
 
-
-
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.api.domain.Cliente;
-import com.api.repository.ClienteRepository;
+import com.api.domain.Produto;
+import com.api.repository.ProdutoRepository;
 import com.api.services.exceptions.ObjectNotFoundException;
 
+
+
 @Service
-public class ClienteService {
+public class ProdutoService {
 	
 	@Autowired
-	private ClienteRepository repo;
+	private ProdutoRepository repo;
 
-	public Cliente find(Long id) {
-		Optional<Cliente> obj = repo.findById(id);
+	public Produto find(Long id) {
+		Optional<Produto> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-		"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
+		"Objeto não encontrado! Id: " + id + ", Tipo: " + Produto.class.getName()));
 		}
 		
 }

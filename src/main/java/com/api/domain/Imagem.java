@@ -1,9 +1,5 @@
 package com.api.domain;
 
-
-
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,21 +7,21 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.sun.istack.NotNull;
+
 import lombok.Data;
 
 @Entity
 @Data
-public class Cidade implements Serializable {
-	private static final long serialVersionUID = 1L;
-
+public class Imagem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	private String nome;
-
+	private Long id;
+	@NotNull
+	private String url;
 	
 	@ManyToOne
-	@JoinColumn(name = "estado_id")
-	private Estado estado;
-
+	@JoinColumn(name="produdo_id")
+	private Produto produto;
+	
 }
