@@ -13,14 +13,14 @@ import com.api.domain.Pedido;
 import com.api.services.PedidoService;
 
 @RestController
-@RequestMapping(value="/pedidos")
+@RequestMapping(value="api/pedido")
 public class PedidoResource {
 	
 	@Autowired
 	private PedidoService service;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
+	public ResponseEntity<?> find(@PathVariable Long id) {
 		Pedido obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}

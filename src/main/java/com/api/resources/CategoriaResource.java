@@ -12,14 +12,14 @@ import com.api.domain.Categoria;
 import com.api.services.CategoriaService;
 
 @RestController
-@RequestMapping(value="/categorias")
+@RequestMapping(value="api/categoria")
 public class CategoriaResource {
 	
 	@Autowired
 	private CategoriaService service;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
+	public ResponseEntity<?> find(@PathVariable Long id) {
 		Categoria obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}

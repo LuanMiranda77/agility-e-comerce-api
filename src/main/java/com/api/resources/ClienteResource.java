@@ -13,14 +13,14 @@ import com.api.domain.Cliente;
 import com.api.services.ClienteService;
 
 @RestController
-@RequestMapping(value="/clientes")
+@RequestMapping(value="api/cliente")
 public class ClienteResource {
 	
 	@Autowired
 	private ClienteService service;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
+	public ResponseEntity<?> find(@PathVariable Long id) {
 		Cliente obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
