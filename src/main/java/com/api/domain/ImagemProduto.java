@@ -9,11 +9,12 @@ import javax.persistence.ManyToOne;
 
 import com.sun.istack.NotNull;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Entity
 @Data
-public class Imagem {
+public class ImagemProduto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -21,7 +22,17 @@ public class Imagem {
 	private String url;
 	
 	@ManyToOne
-	@JoinColumn(name="produdo_id")
+	@JoinColumn(name="produto_id")
 	private Produto produto;
+
+	public ImagemProduto(String url, Produto produto) {
+		super();
+		this.url = url;
+		this.produto = produto;
+	}
+	
+	
+	
+	
 	
 }
