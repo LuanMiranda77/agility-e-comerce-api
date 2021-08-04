@@ -45,7 +45,7 @@ public class Produto  implements Serializable{
 	private String descricao;
 	
 	@OneToMany(mappedBy = "produto")
-	private List<Imagem> imagens = new ArrayList<>();;
+	private List<ImagemProduto> imagens = new ArrayList<>();;
 	
 	
 	@JsonIgnore

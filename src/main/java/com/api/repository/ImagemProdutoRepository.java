@@ -4,9 +4,10 @@ package com.api.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.api.domain.Usuario;
+import com.api.domain.ImagemProduto;
+
 
 @Repository
-public interface UserRepository extends JpaRepository<Usuario, Long> {
+public interface ImagemProdutoRepository extends JpaRepository<ImagemProduto, Long>{
 
 }
