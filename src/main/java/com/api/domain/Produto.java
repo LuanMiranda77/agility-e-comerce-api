@@ -17,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
@@ -31,6 +32,7 @@ public class Produto  implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	
 	@NotNull
 	private String codigoBarras;
 	@NotNull
@@ -43,7 +45,7 @@ public class Produto  implements Serializable{
 	private Integer quantidade;
 	@NotNull
 	private String descricao;
-	
+
 	@OneToMany(mappedBy = "produto")
 	private List<ImagemProduto> imagens = new ArrayList<>();;
 	
