@@ -12,20 +12,29 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.api.domain.Produto;
+import com.api.repository.ProdutoRepository;
 import com.api.services.ProdutoService;
 
 //@autor Jadson Feitosa #29
 
+@RestController
+@RequestMapping("/api/produto")
 public class ProdutoResource implements ResourceBase<Produto, Long>{
 	
 	@Autowired
 	private ProdutoService produtoService;
+	
+	@Autowired
+	private ProdutoRepository produtoRepository;
 
 //	Salvar Produto
 	@PostMapping
@@ -36,22 +45,23 @@ public class ProdutoResource implements ResourceBase<Produto, Long>{
 	}
 
 //	Atualizar entidade 
-	@PutMapping("/{codigo}")
-	public ResponseEntity<Produto> update(@Valid Long pID, Produto pEntity) {
+	@PutMapping("/{pID}")
+	public ResponseEntity<Produto> update(@Valid @PathVariable Long pID, @RequestBody Produto pEntity) {
 		Produto produtoSalvo = produtoService.update(pID, pEntity);
 		return ResponseEntity.ok(produtoSalvo);
 	}
 
 //	Deletar produto
-	@DeleteMapping("/{codigo}")
-	public void delete(Long pID) {
-		produtoService.delete(pID);
+	@DeleteMapping("/{pID}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void delete(@PathVariable Long pID) {
+		produtoRepository.deleteById(pID);
 	}
 
 //	Filtro por ID
-	@GetMapping("/{id}")
-	public ResponseEntity<Produto> findById(Long pID) {
-		return ResponseEntity.ok(produtoService.find(pID)) ;
+	@GetMapping("/{pID}")
+	public ResponseEntity<Produto> findById(@PathVariable Long pID) {
+		return ResponseEntity.ok(produtoRepository.findById(pID).get());
 	}
 
 	
@@ -59,8 +69,9 @@ public class ProdutoResource implements ResourceBase<Produto, Long>{
 		return null;
 	}
 
+	@GetMapping
 	public List<Produto> findAllList() {
-		return null;
+		return produtoRepository.findAll();
 	}
 
 }
