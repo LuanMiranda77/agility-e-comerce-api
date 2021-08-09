@@ -22,6 +22,7 @@ public class SecurityBaseConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().anyRequest()
 		.authenticated()
+		.and().cors()
 		.and()
 		.httpBasic()
 		.and()

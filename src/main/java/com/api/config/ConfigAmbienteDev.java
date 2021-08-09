@@ -66,7 +66,15 @@ public class ConfigAmbienteDev {
 			categorias.add(categoria);
 			
 			BigDecimal b = new BigDecimal(1.8);
-			produto = new Produto("154587878"+i+1,"item-"+i+1,b,b,1,"dercição"+i+1);
+			produto = new Produto();
+			produto.setCodigoBarras("154587878"+i+1);
+			produto.setNome("item-"+i+1);
+			produto.setPrecoAtacado(b);
+			produto.setPrecoVarejo(b);
+			produto.setQuantidade(i);
+			produto.setDescricao("Descrição"+i+1);
+			
+			
 			produtos.add(produto);
 			produto.setId(i+1l);
 			

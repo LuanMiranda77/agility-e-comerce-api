@@ -46,6 +46,8 @@ public class Produto  implements Serializable{
 	private Integer quantidade;
 	@NotNull
 	private String descricao;
+	
+	private Integer estrelas;
 
 	@OneToMany(mappedBy = "produto")
 	@Transient
@@ -64,20 +66,9 @@ public class Produto  implements Serializable{
 	@OneToMany(mappedBy = "id.produto")
 	private Set<ItemPedido> itens = new HashSet<>();
 	
-	public Produto() {
-	}
+	
 
-	public Produto(String codigoBarras, String nome, BigDecimal precoVarejo, BigDecimal precoAtacado,
-			Integer quantidade, String descricao, List<ImagemProduto> imagens ) {
-		super();
-		this.codigoBarras = codigoBarras;
-		this.nome = nome;
-		this.precoVarejo = precoVarejo;
-		this.precoAtacado = precoAtacado;
-		this.quantidade = quantidade;
-		this.descricao = descricao;
-		this.imagens = imagens;
-	}
+
 	
 
 
