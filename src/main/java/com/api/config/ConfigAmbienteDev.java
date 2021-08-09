@@ -26,7 +26,7 @@ import com.api.repository.UserRepository;
 public class ConfigAmbienteDev {
 	
 	@Transient
-	private int quantDeLoop=1000;
+	private int quantDeLoop=10;
 	
 	@Autowired
 	ProdutoRepository produtoRepository;

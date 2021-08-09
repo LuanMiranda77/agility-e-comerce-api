@@ -15,17 +15,19 @@ public class SecurityBaseConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.inMemoryAuthentication()
-		.withUser("admin").password("Ads%$#@!Ads").roles("ADMIN").and();
+		.withUser("admin").password("Ads%$#@!Ads").roles("ROEL_ADMIN");
 	}
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().anyRequest()
 		.authenticated()
-		.and().cors()
+		.and()
+		.cors()
 		.and()
 		.httpBasic()
 		.and()
+		.csrf().disable()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 	
