@@ -20,6 +20,7 @@ public class SecurityOauth2 extends WebSecurityConfigurerAdapter{
 	@Override
 	protected AuthenticationManager authenticationManager() throws Exception {
 		return super.authenticationManager();
+		
 	}
 	
 	@Override

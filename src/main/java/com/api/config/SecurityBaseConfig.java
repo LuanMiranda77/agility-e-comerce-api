@@ -29,6 +29,7 @@ public class SecurityBaseConfig extends WebSecurityConfigurerAdapter {
 		.and()
 		.csrf().disable()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		
 	}
 	
 	@Bean
