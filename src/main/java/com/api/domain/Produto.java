@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,8 +28,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Produto  implements Serializable{
-	private static final long serialVersionUID = 1L;
+public class Produto {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -49,8 +49,8 @@ public class Produto  implements Serializable{
 	
 	private Integer estrelas;
 
-	@OneToMany(mappedBy = "produto")
-	@Transient
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "produto")
+	//@Transient
 	private List<ImagemProduto> imagens = new ArrayList<>();
 	
 	

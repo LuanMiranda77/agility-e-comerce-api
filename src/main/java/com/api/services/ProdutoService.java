@@ -1,7 +1,5 @@
 package com.api.services;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,12 +15,12 @@ public class ProdutoService {
 	@Autowired
 	private ProdutoRepository produtoRepository;
 
-	public Produto save(@Valid Produto pEntity) {
+	public Produto save(Produto pEntity) {
 		return produtoRepository.save(pEntity);
 	}
 
-	public Produto update(@Valid Long pID, Produto pEntity) {
-		Produto produtoSalvo = produtoRepository.getById(pID);
+	public Produto update(Long pID, Produto pEntity) {
+		Produto produtoSalvo = produtoRepository.findById(pID).get();
 		
 		BeanUtils.copyProperties(pEntity, produtoSalvo,"id");
 		produtoRepository.save(produtoSalvo);
