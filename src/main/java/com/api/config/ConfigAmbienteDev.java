@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.api.domain.Categoria;
 import com.api.domain.ImagemProduto;
@@ -60,10 +61,12 @@ public class ConfigAmbienteDev {
 		ImagemProduto imagem5;
 		
 		Random gerador = new Random();
+		
+		user = new Usuario("test@gmail.com", "123456");
+//		new BCryptPasswordEncoder().encode("123456")
+		users.add(user);
+		
 		for(int i=0;i<quantDeLoop;i++ ) {
-			user = new Usuario("test"+i+1+"@gmail.com","123456");
-			users.add(user);
-			
 			categoria = new Categoria("categoria-test"+i);
 			categorias.add(categoria);
 			
