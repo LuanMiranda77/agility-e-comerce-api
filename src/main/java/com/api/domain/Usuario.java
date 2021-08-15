@@ -51,6 +51,10 @@ public class Usuario implements UserDetails {
 	
 	@Enumerated
 	private Status status;
+	
+	public Usuario() {
+		
+	}
 
 	public Usuario(String email, String password) {
 		super();

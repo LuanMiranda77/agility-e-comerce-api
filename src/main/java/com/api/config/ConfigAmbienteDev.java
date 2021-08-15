@@ -62,7 +62,8 @@ public class ConfigAmbienteDev {
 		
 		Random gerador = new Random();
 		
-		user = new Usuario("test@gmail.com", new BCryptPasswordEncoder().encode("123"));
+		user = new Usuario("test@gmail.com", "123456");
+//		new BCryptPasswordEncoder().encode("123456")
 		users.add(user);
 		
 		for(int i=0;i<quantDeLoop;i++ ) {

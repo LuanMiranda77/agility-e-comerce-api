@@ -28,14 +28,17 @@ public class ImagemProduto {
 	@JoinColumn(name="produto_id")
 	private Produto produto;
 
-	public ImagemProduto( Long id, String url, Produto produto) {
-		this.id = id;
-		this.url = url;
-		this.produto = produto;
-	}
+	
 	
 	public ImagemProduto() {
 		
+	}
+
+	public ImagemProduto(Long id, String url, Produto produto) {
+		super();
+		this.id = id;
+		this.url = url;
+		this.produto = produto;
 	}
 	
 	

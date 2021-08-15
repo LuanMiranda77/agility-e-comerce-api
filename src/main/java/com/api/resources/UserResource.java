@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,12 +26,15 @@ public class UserResource implements ResourceBase<Usuario, Long>{
 	@Autowired
 	private UserRepository userRepository;
 	
+	@PostMapping("/login")
 	public ResponseEntity<Boolean> login(@RequestBody Usuario pEntity, HttpServletResponse response){
 		Usuario userSalvo = userRepository.findByEmail(pEntity.getEmail());
 		
+		System.out.println(userSalvo.getPassword());
 		if(userSalvo != null) {
 			if(userSalvo.getEmail().equals(pEntity.getEmail()) 
 					&& userSalvo.getPassword().equals(pEntity.getPassword())) {
+				
 				return ResponseEntity.status(HttpStatus.ACCEPTED).body(true);
 				
 			}
