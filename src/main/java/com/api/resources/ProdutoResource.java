@@ -63,7 +63,12 @@ public class ProdutoResource implements ResourceBase<Produto, Long>{
 	public ResponseEntity<Produto> findById(@PathVariable Long pID) {
 		return ResponseEntity.ok(produtoRepository.findById(pID).get());
 	}
-
+	
+	@DeleteMapping("/all")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteAll( @RequestBody List<Produto> pList) {
+		produtoRepository.deleteAll(pList);
+	}
 	
 	public Page<Produto> findAllPage(Produto pFilter, Pageable pPage) {
 		return null;
