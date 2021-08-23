@@ -25,7 +25,7 @@ public class UserDetailsImpl implements UserDetailsService{
 			 new UserNameNotFoundException("Usuario não encotrado!");
 		}
 			
-		return user;
+		return (UserDetails) user;
 	}
 
 }

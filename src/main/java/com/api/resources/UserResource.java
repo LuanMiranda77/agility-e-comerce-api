@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +29,6 @@ public class UserResource implements ResourceBase<Usuario, Long>{
 	public ResponseEntity<Boolean> login(@RequestBody Usuario pEntity, HttpServletResponse response){
 		Usuario userSalvo = userRepository.findByEmail(pEntity.getEmail());
 		
-		System.out.println(userSalvo.getPassword());
 		if(userSalvo != null) {
 			if(userSalvo.getEmail().equals(pEntity.getEmail()) 
 					&& userSalvo.getPassword().equals(pEntity.getPassword())) {
