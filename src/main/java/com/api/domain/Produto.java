@@ -50,7 +50,6 @@ public class Produto {
 	private Integer estrelas;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "produto")
-	//@Transient
 	private List<ImagemProduto> imagens = new ArrayList<>();
 	
 	

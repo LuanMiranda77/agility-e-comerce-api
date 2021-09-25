@@ -40,7 +40,13 @@ public class ProdutoResource implements ResourceBase<Produto, Long>{
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Produto> save(@Valid @RequestBody Produto pEntity, HttpServletResponse response) {
-		Produto produtoSalvo = produtoService.save(pEntity);
+		Produto produtoSalvo = null;
+		try {
+			produtoSalvo = produtoService.save(pEntity);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(produtoSalvo);
 	}
 

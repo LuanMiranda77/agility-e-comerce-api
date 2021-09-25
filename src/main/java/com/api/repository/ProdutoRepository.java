@@ -8,5 +8,9 @@ import com.api.domain.Produto;
 
 @Repository
 public interface ProdutoRepository extends JpaRepository<Produto, Long> {
+	
+	public Produto findByCodigoBarras(String codigoBarras);
+	
+	public boolean existsByCodigoBarras(String codigoBarras);
 
 }
