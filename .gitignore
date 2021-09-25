@@ -1,5 +1,26 @@
 # Compiled class file
 *.class
+*.xmi
+variablesAndContainers.dat
+version.ini
+pom.properties
+*.prefs
+misc.xml
+nonChainingJarsCache
+OpenTypeHistory.xml
+logback.1.16.1.20210603-1006.xml
+jarRepositories.xml
+history.version
+javaLikeNames.txt
+org.eclipse.core.resources
+vcs.xml
+QualifiedTypeNameHistory.xml
+runConfigurations.xml
+properties.version
+properties.index
+externalFilesCache
+encodings.xml
+workspace.xml
 
 # Log file
 *.log
