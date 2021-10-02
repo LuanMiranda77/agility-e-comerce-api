@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,6 +18,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
@@ -25,12 +28,12 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Produto  implements Serializable{
-	private static final long serialVersionUID = 1L;
+public class Produto {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	
 	@NotNull
 	private String codigoBarras;
 	@NotNull
@@ -44,15 +47,18 @@ public class Produto  implements Serializable{
 	@NotNull
 	private String descricao;
 	
-	@OneToMany(mappedBy = "produto")
-	private List<ImagemProduto> imagens = new ArrayList<>();;
+	private Integer estrelas;
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="produto_id")
+	private List<ImagemProduto> imagens = new ArrayList<>();
 	
 	
-	@JsonIgnore
+//	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "PRODUTO_CATEGORIA",
-		joinColumns = @JoinColumn(name = "produto_id"),
-		inverseJoinColumns = @JoinColumn(name = "categoria_id")
+			   joinColumns = @JoinColumn(name = "produto_id"),
+			   inverseJoinColumns = @JoinColumn(name = "categoria_id")
 	)
 	private List<Categoria> categorias = new ArrayList<>();
 	
@@ -60,19 +66,10 @@ public class Produto  implements Serializable{
 	@OneToMany(mappedBy = "id.produto")
 	private Set<ItemPedido> itens = new HashSet<>();
 	
-	public Produto() {
-	}
+	
 
-	public Produto(String codigoBarras, String nome, BigDecimal precoVarejo, BigDecimal precoAtacado,
-			Integer quantidade, String descricao) {
-		super();
-		this.codigoBarras = codigoBarras;
-		this.nome = nome;
-		this.precoVarejo = precoVarejo;
-		this.precoAtacado = precoAtacado;
-		this.quantidade = quantidade;
-		this.descricao = descricao;
-	}
+
+	
 
 
 	

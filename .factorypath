@@ -71,7 +71,6 @@
     <factorypathentry kind="VARJAR" id="M2_REPO/org/springframework/spring-oxm/5.3.9/spring-oxm-5.3.9.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/springframework/ws/spring-ws-core/3.1.1/spring-ws-core-3.1.1.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/springframework/ws/spring-xml/3.1.1/spring-xml-3.1.1.jar" enabled="true" runInBatchMode="false"/>
-    <factorypathentry kind="VARJAR" id="M2_REPO/org/flywaydb/flyway-core/7.7.3/flyway-core-7.7.3.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/springframework/boot/spring-boot-devtools/2.5.3/spring-boot-devtools-2.5.3.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/springframework/boot/spring-boot/2.5.3/spring-boot-2.5.3.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/springframework/boot/spring-boot-autoconfigure/2.5.3/spring-boot-autoconfigure-2.5.3.jar" enabled="true" runInBatchMode="false"/>
