@@ -15,8 +15,10 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.api.domain.Categoria;
+import com.api.domain.Cliente;
 import com.api.domain.ImagemProduto;
 import com.api.domain.Produto;
+import com.api.domain.TipoCliente;
 import com.api.domain.Usuario;
 import com.api.repository.CategoriaRepository;
 import com.api.repository.ImagemProdutoRepository;
@@ -27,6 +29,9 @@ import com.api.repository.UsuarioRepository;
 @Profile("dev")
 public class ConfigAmbienteDev {
 	
+	private static final TipoCliente ATACADO = null;
+	private static final TipoCliente VAREJO = null;
+
 	@Transient
 	private int quantDeLoop=10;
 	
@@ -63,6 +68,14 @@ public class ConfigAmbienteDev {
 		user.setNome("ADMIN");
 //		new BCryptPasswordEncoder().encode("123456")
 		users.add(user);
+		
+		
+		Cliente cliente = new Cliente();
+		cliente.setUsusario(user);
+		cliente.setCpfCnpj("101010");
+		cliente.setTipo(ATACADO);
+		cliente.setEndereco(null);
+		
 		
 		for(int i=0;i<quantDeLoop;i++ ) {
 			categoria = new Categoria(i+1l,"categoria-test"+i);

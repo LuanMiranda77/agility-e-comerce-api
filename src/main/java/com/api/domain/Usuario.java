@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.validation.constraints.Size;
 
 import com.sun.istack.NotNull;
@@ -36,7 +38,7 @@ public class Usuario {
 	@NotNull
 	private String email;
 	
-	private Date dataCriacao;
+	private Date dataCriacao ;
 	
 	private Date dataAtualizacao;
 	
@@ -50,9 +52,13 @@ public class Usuario {
 	@Enumerated(EnumType.ORDINAL)
 	private Roles role;
 
-	
+	@PrePersist
 	public void dataInicial() {
 		this.dataCriacao = new Timestamp(System.currentTimeMillis());
+	}
+	
+	@PreUpdate
+	public void dataAtualizacao() {
 		this.dataAtualizacao = new Timestamp(System.currentTimeMillis());
 	}
 	
