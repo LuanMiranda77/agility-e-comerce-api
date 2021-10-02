@@ -29,6 +29,7 @@ import com.api.services.UsuarioService;
 @RequestMapping("/api/usuario")
 public class UsuarioResource implements ResourceBase<Usuario, Long> {
 	
+	
 	@Autowired
 	private UsuarioService usuarioService;
 	

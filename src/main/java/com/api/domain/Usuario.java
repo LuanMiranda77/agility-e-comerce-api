@@ -65,6 +65,7 @@ public class Usuario {
 		
 	}
 
+	
 	public Usuario(String email, String password) {
 		super();
 		this.email = email;
