@@ -49,15 +49,16 @@ public class Produto {
 	
 	private Integer estrelas;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "produto")
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="produto_id")
 	private List<ImagemProduto> imagens = new ArrayList<>();
 	
 	
-	@JsonIgnore
+//	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "PRODUTO_CATEGORIA",
-		joinColumns = @JoinColumn(name = "produto_id"),
-		inverseJoinColumns = @JoinColumn(name = "categoria_id")
+			   joinColumns = @JoinColumn(name = "produto_id"),
+			   inverseJoinColumns = @JoinColumn(name = "categoria_id")
 	)
 	private List<Categoria> categorias = new ArrayList<>();
 	

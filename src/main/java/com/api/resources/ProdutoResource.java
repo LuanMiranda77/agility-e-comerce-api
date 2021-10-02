@@ -70,7 +70,7 @@ public class ProdutoResource implements ResourceBase<Produto, Long>{
 		return ResponseEntity.ok(produtoRepository.findById(pID).get());
 	}
 	
-	@PostMapping("/deleteall")
+	@DeleteMapping("/deleteall")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteAll( @RequestBody List<Produto> pList) {
 		produtoRepository.deleteAll(pList);

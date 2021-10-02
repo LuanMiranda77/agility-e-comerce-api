@@ -48,17 +48,11 @@ public class ConfigAmbienteDev {
 		List<Produto>produtos = new ArrayList<>();
 		List<Usuario>users = new ArrayList<>();
 		List<Categoria>categorias = new ArrayList<>();
-		List<ImagemProduto>images = new ArrayList<>();
 		
 // 		setando dados dos usuarios		
 		Usuario user;
 		Categoria categoria;
 		Produto produto;
-		ImagemProduto imagem1;
-		ImagemProduto imagem2;
-		ImagemProduto imagem3;
-		ImagemProduto imagem4;
-		ImagemProduto imagem5;
 		
 		Random gerador = new Random();
 		
@@ -67,7 +61,7 @@ public class ConfigAmbienteDev {
 		users.add(user);
 		
 		for(int i=0;i<quantDeLoop;i++ ) {
-			categoria = new Categoria("categoria-test"+i);
+			categoria = new Categoria(i+1l,"categoria-test"+i);
 			categorias.add(categoria);
 			
 			BigDecimal b = new BigDecimal(1.8);
@@ -79,29 +73,21 @@ public class ConfigAmbienteDev {
 			produto.setQuantidade(i);
 			produto.setDescricao("Descrição"+i+1);
 			produto.setEstrelas(gerador.nextInt(5));
-			
-			
+			produto.getImagens().add(new ImagemProduto(null,"https://a-static.mlcdn.com.br/1500x1500/relogio-binbond-de-luxo-moda-esporte-ouro-relogios-pulso-relogio-casual-cronografo-sem-genero/classicosrelogioseacessorios/crabinbondprata/b2ba92809443451bf0d1e16d28003a1c.jpg"));
+			produto.getImagens().add(new ImagemProduto(null,"https://images-americanas.b2w.io/produtos/01/00/img/79597/8/79597872_1GG.jpg"));
+			produto.getImagens().add(new ImagemProduto(null,"https://d3ugyf2ht6aenh.cloudfront.net/stores/386/761/products/dsc08819-edit-gold11-07a7861b1e1cf702ec16186076742287-480-0.jpg"));
+			produto.getImagens().add(new ImagemProduto(null,"https://m.media-amazon.com/images/I/61QHCYJIDsL._AC_SX522_.jpg"));
+			produto.getImagens().add(new ImagemProduto(null,"https://images-soubarato.b2w.io/produtos/3029006799/imagens/2020-moda-masculina-minimalista-ultra-fino-relogios-simples-aco-homens-de-negocios-inoxidavel-mesh-belt-relogio-de-quartzo-relogio-masculino/3029006799_1_large.jpg"));
+			produto.getCategorias().add(categoria);
 			produtos.add(produto);
 			produto.setId(i+1l);
-			
-			imagem1 = new ImagemProduto(null,"https://a-static.mlcdn.com.br/1500x1500/relogio-binbond-de-luxo-moda-esporte-ouro-relogios-pulso-relogio-casual-cronografo-sem-genero/classicosrelogioseacessorios/crabinbondprata/b2ba92809443451bf0d1e16d28003a1c.jpg", produto);
-			imagem2 = new ImagemProduto(null,"https://images-americanas.b2w.io/produtos/01/00/img/79597/8/79597872_1GG.jpg", produto);
-			imagem3 = new ImagemProduto(null,"https://d3ugyf2ht6aenh.cloudfront.net/stores/386/761/products/dsc08819-edit-gold11-07a7861b1e1cf702ec16186076742287-480-0.jpg", produto);
-			imagem4 = new ImagemProduto(null,"https://m.media-amazon.com/images/I/61QHCYJIDsL._AC_SX522_.jpg", produto);
-			imagem5 = new ImagemProduto(null,"https://images-soubarato.b2w.io/produtos/3029006799/imagens/2020-moda-masculina-minimalista-ultra-fino-relogios-simples-aco-homens-de-negocios-inoxidavel-mesh-belt-relogio-de-quartzo-relogio-masculino/3029006799_1_large.jpg", produto);
-			images.add(imagem1);
-			images.add(imagem2);
-			images.add(imagem3);
-			images.add(imagem4);
-			images.add(imagem5);
 		}
 		
-		
 // 		salvando dados			
-		userRepository.saveAll(users);
 		categoriaRepository.saveAll(categorias);
+		userRepository.saveAll(users);
 		produtoRepository.saveAll(produtos);
-		imagemProdutoRepository.saveAll(images);
+
 		
 		
 	}
