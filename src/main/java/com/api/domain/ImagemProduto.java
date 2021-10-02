@@ -1,5 +1,7 @@
 package com.api.domain;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,23 +24,16 @@ public class ImagemProduto {
 	private Long id;
 	@NotNull
 	private String url;
-	
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name="produto_id")
-	private Produto produto;
 
-	
 	
 	public ImagemProduto() {
 		
 	}
 
-	public ImagemProduto(Long id, String url, Produto produto) {
+	public ImagemProduto(Long id, String url) {
 		super();
 		this.id = id;
 		this.url = url;
-		this.produto = produto;
 	}
 	
 	

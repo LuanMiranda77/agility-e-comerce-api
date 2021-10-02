@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 
@@ -23,15 +25,24 @@ public class Categoria implements Serializable {
 	private Long id;
 	private String nome;
 	
-	
+	@JsonIgnore
 	@ManyToMany(mappedBy="categorias")
 	private List<Produto> produtos = new ArrayList<>();
 
 
-	public Categoria(String nome) {
+	public Categoria() {
 		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Categoria(Long id, String nome) {
+		super();
+		this.id = id;
 		this.nome = nome;
 	}
+
+
+
 	
 	
 	
