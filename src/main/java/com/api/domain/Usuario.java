@@ -43,6 +43,7 @@ public class Usuario {
 	@Size(min = 6)
 	private String password;
 
+	
 	public Usuario(String email, String password) {
 		super();
 		this.email = email;
