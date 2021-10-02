@@ -44,41 +44,12 @@ public class Usuario {
 	private String password;
 
 	
-	public Usuario(String email, String password) {
-		super();
-		this.email = email;
-		this.password = password;
-	}
-	
 	public void dataInicial() {
 		this.dataCriacao = new Timestamp(System.currentTimeMillis());
 		this.dataAtualizacao = new Timestamp(System.currentTimeMillis());
 	}
 	
-//	public void isAtive() {
-//		
-//		if (this.dataAtualizacao >= ) {
-//			this.status = false;
-//		}
-//		else {
-//			this.status = true; 
-//		}
-//	}
-	
-	public void dataInicial() {
-		this.dataCriacao = new Timestamp(System.currentTimeMillis());
-		this.dataAtualizacao = new Timestamp(System.currentTimeMillis());
-	}
-	
-//	public void isAtive() {
-//		
-//		if (this.dataAtualizacao >= ) {
-//			this.status = false;
-//		}
-//		else {
-//			this.status = true; 
-//		}
-//	}
+
 	
 	
 }

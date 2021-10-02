@@ -56,7 +56,11 @@ public class ConfigAmbienteDev {
 		
 		Random gerador = new Random();
 		
-		user = new Usuario("test@gmail.com", "123456");
+		user = new Usuario();
+		user.setEmail("test@gmail.com");
+		user.setPassword("123456");
+		user.setLogin("admin");
+		user.setNome("ADMIN");
 //		new BCryptPasswordEncoder().encode("123456")
 		users.add(user);
 		

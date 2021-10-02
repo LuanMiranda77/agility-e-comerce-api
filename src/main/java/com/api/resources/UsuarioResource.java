@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -46,9 +47,9 @@ public class UsuarioResource implements ResourceBase<Usuario, Long> {
 	}
 	
 //	Atualizar Usuario
-	@PutMapping("/{pID}")
-	public ResponseEntity<Usuario> update(@Valid @PathVariable Long pID,@RequestBody Usuario pEntity) {
-		Usuario usuarioSalvo = usuarioService.update(pID, pEntity);
+	@PutMapping
+	public ResponseEntity<Usuario> update(@Valid @RequestBody Usuario pEntity) {
+		Usuario usuarioSalvo = usuarioService.update(pEntity);
 		return ResponseEntity.ok(usuarioSalvo);
 	}
 
@@ -59,6 +60,11 @@ public class UsuarioResource implements ResourceBase<Usuario, Long> {
 		usuarioRepository.deleteById(pID);
 	}
 
+//  Listar usuario
+	@GetMapping
+	public List<Usuario> findAllList() {
+		return usuarioRepository.findAll();
+	}
 //	Filtro por ID
 	public ResponseEntity<Usuario> findById(@PathVariable Long pID) {
 		return ResponseEntity.ok(usuarioRepository.findById(pID).get());
@@ -68,7 +74,10 @@ public class UsuarioResource implements ResourceBase<Usuario, Long> {
 		return null;
 	}
 
-	public List<Usuario> findAllList() {
+
+	@Override
+	public ResponseEntity<Usuario> update(@Valid Long pID, Usuario pEntity) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
