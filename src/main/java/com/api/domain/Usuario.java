@@ -1,7 +1,8 @@
 package com.api.domain;
 
-import java.util.Collection;
-import java.util.List;
+
+import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -21,27 +22,30 @@ import com.sun.istack.NotNull;
 
 import lombok.Data;
 
+//@autor Jadson Feitosa #AE-42
+
 @Entity
 @Data
-public class Usuario implements UserDetails {
+public class Usuario {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@NotNull
-	private String name;
-	
+	private String nome;
+
 	@NotNull
 	private String login;
 	
 	@NotNull
 	private String email;
+	
+	private Date dataCriacao;
+	
+	private Date dataAtualizacao;
+	
+	private Boolean status;
 	
 	@NotNull
 	@Size(min = 6)
@@ -108,6 +112,21 @@ public class Usuario implements UserDetails {
 	}
 
 
+	
+	public void dataInicial() {
+		this.dataCriacao = new Timestamp(System.currentTimeMillis());
+		this.dataAtualizacao = new Timestamp(System.currentTimeMillis());
+	}
+	
+//	public void isAtive() {
+//		
+//		if (this.dataAtualizacao >= ) {
+//			this.status = false;
+//		}
+//		else {
+//			this.status = true; 
+//		}
+//	}
 	
 	
 }

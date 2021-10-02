@@ -21,7 +21,7 @@ import com.api.domain.Usuario;
 import com.api.repository.CategoriaRepository;
 import com.api.repository.ImagemProdutoRepository;
 import com.api.repository.ProdutoRepository;
-import com.api.repository.UserRepository;
+import com.api.repository.UsuarioRepository;
 
 @Configuration
 @Profile("dev")
@@ -33,7 +33,7 @@ public class ConfigAmbienteDev {
 	@Autowired
 	ProdutoRepository produtoRepository;
 	@Autowired
-	UserRepository userRepository;
+	UsuarioRepository userRepository;
 	@Autowired
 	CategoriaRepository categoriaRepository;
 	@Autowired

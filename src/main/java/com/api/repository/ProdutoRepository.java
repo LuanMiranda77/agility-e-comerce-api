@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 
 import com.api.domain.Produto;
 
+//@autor Jadson Feitosa #29
+
 @Repository
 public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 	
