@@ -22,7 +22,8 @@ properties.index
 externalFilesCache
 encodings.xml
 workspace.xml
-*.class
+MANIFEST.MF
+
 
 # Log file
 *.log
