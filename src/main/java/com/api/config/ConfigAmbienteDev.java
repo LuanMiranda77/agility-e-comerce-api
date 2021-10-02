@@ -21,7 +21,7 @@ import com.api.domain.Usuario;
 import com.api.repository.CategoriaRepository;
 import com.api.repository.ImagemProdutoRepository;
 import com.api.repository.ProdutoRepository;
-import com.api.repository.UserRepository;
+import com.api.repository.UsuarioRepository;
 
 @Configuration
 @Profile("dev")
@@ -33,7 +33,7 @@ public class ConfigAmbienteDev {
 	@Autowired
 	ProdutoRepository produtoRepository;
 	@Autowired
-	UserRepository userRepository;
+	UsuarioRepository userRepository;
 	@Autowired
 	CategoriaRepository categoriaRepository;
 	@Autowired
@@ -56,7 +56,11 @@ public class ConfigAmbienteDev {
 		
 		Random gerador = new Random();
 		
-		user = new Usuario("test@gmail.com", "123456");
+		user = new Usuario();
+		user.setEmail("test@gmail.com");
+		user.setPassword("123456");
+		user.setLogin("admin");
+		user.setNome("ADMIN");
 //		new BCryptPasswordEncoder().encode("123456")
 		users.add(user);
 		
