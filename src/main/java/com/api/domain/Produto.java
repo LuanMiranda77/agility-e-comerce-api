@@ -26,6 +26,8 @@ import com.sun.istack.NotNull;
 
 import lombok.Data;
 
+//@autor Jadson Feitosa #29
+
 @Entity
 @Data
 public class Produto {
