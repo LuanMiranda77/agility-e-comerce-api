@@ -13,7 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 //@EnableWebSecurity
 //@EnableAuthorizationServer
 //@EnableResourceServer
-//@Profile("dev")
+@Profile("prod")
 public class SecurityOauth2 extends WebSecurityConfigurerAdapter{
 	
 	@Bean
