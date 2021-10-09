@@ -23,17 +23,20 @@ public class ImagemProduto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NotNull
-	private String url;
+	private String objectURL;
+	
+	private String hash;
 
 	
 	public ImagemProduto() {
 		
 	}
 
-	public ImagemProduto(Long id, String url) {
+	public ImagemProduto(Long id, String url, String hash) {
 		super();
 		this.id = id;
-		this.url = url;
+		this.objectURL = url;
+		this.hash = hash;
 	}
 	
 	
