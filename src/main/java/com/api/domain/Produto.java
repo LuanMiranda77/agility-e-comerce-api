@@ -36,7 +36,7 @@ public class Produto {
 	@NotNull
 	private String codigoBarras;
 	@NotNull
-	private String nome;
+	private String titulo;
 	@NotNull
 	private BigDecimal precoVarejo;
 	@NotNull
@@ -45,6 +45,14 @@ public class Produto {
 	private Integer quantidade;
 	@NotNull
 	private String descricao;
+	@NotNull
+	private String peso;
+	@NotNull
+	private String comprimento;
+	@NotNull
+	private String altura;
+	@NotNull
+	private String largura;
 	
 	private Integer estrelas;
 
