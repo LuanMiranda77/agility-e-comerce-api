@@ -1,57 +1,39 @@
 package com.api.domain;
-import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 
+
+
 @Entity
 @Data
-public class Endereco implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Endereco  {
+	
+	//@autor Jadson Feitosa #43
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	private String logradouro;
+	
 	private String numero;
+	
 	private String complemento;
+	
 	private String bairro;
+	
+	private String cidade;
+	
 	private String cep;
-	
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name="cliente_id")
-	private Cliente cliente;
-	
-	
-	@ManyToOne
-	@JoinColumn(name = "cidade_id")
-	private Cidade cidade;
-	
-	public Endereco() {
-	}
 
-	public Endereco(Long id, String logradouro, String numero, String complemento, String bairro, String cep,
-			Cliente cliente, Cidade cidade) {
-		super();
-		this.id = id;
-		this.logradouro = logradouro;
-		this.numero = numero;
-		this.complemento = complemento;
-		this.bairro = bairro;
-		this.cep = cep;
-		this.cliente = cliente;
-		this.setCidade(cidade);
-	}
-
-
+	@Enumerated(EnumType.STRING)
+	private UF uf;
 	
 }

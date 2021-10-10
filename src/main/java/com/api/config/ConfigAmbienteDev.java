@@ -15,25 +15,30 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.api.domain.Categoria;
+import com.api.domain.Cliente;
 import com.api.domain.ImagemProduto;
 import com.api.domain.Produto;
+import com.api.domain.TipoCliente;
 import com.api.domain.Usuario;
 import com.api.repository.CategoriaRepository;
 import com.api.repository.ImagemProdutoRepository;
 import com.api.repository.ProdutoRepository;
-import com.api.repository.UserRepository;
+import com.api.repository.UsuarioRepository;
 
 @Configuration
 @Profile("dev")
 public class ConfigAmbienteDev {
 	
+	private static final TipoCliente ATACADO = null;
+	private static final TipoCliente VAREJO = null;
+
 	@Transient
 	private int quantDeLoop=10;
 	
 	@Autowired
 	ProdutoRepository produtoRepository;
 	@Autowired
-	UserRepository userRepository;
+	UsuarioRepository userRepository;
 	@Autowired
 	CategoriaRepository categoriaRepository;
 	@Autowired
@@ -56,9 +61,21 @@ public class ConfigAmbienteDev {
 		
 		Random gerador = new Random();
 		
-		user = new Usuario("test@gmail.com", "123456");
+		user = new Usuario();
+		user.setEmail("test@gmail.com");
+		user.setPassword("123456");
+		user.setLogin("admin");
+		user.setNome("ADMIN");
 //		new BCryptPasswordEncoder().encode("123456")
 		users.add(user);
+		
+		
+		Cliente cliente = new Cliente();
+		cliente.setUsusario(user);
+		cliente.setCpfCnpj("101010");
+		cliente.setTipo(ATACADO);
+		cliente.setEndereco(null);
+		
 		
 		for(int i=0;i<quantDeLoop;i++ ) {
 			categoria = new Categoria(i+1l,"categoria-test"+i);
