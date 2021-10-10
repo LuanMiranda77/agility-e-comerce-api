@@ -48,7 +48,7 @@ public class UsuarioResource implements ResourceBase<Usuario, Long> {
 	
 //	Atualizar Usuario
 	@PutMapping
-	public ResponseEntity<Usuario> update(@Valid @RequestBody Usuario pEntity) {
+	public ResponseEntity<Usuario> update(@Valid Long pID, @RequestBody Usuario pEntity) {
 		Usuario usuarioSalvo = usuarioService.update(pEntity);
 		return ResponseEntity.ok(usuarioSalvo);
 	}
@@ -60,24 +60,18 @@ public class UsuarioResource implements ResourceBase<Usuario, Long> {
 		usuarioRepository.deleteById(pID);
 	}
 
-//  Listar usuario
-	@GetMapping
-	public List<Usuario> findAllList() {
-		return usuarioRepository.findAll();
-	}
 //	Filtro por ID
 	public ResponseEntity<Usuario> findById(@PathVariable Long pID) {
 		return ResponseEntity.ok(usuarioRepository.findById(pID).get());
 	}
 
-	public Page<Usuario> findAllPage(Usuario pFilter, Pageable pPage) {
-		return null;
+//  Listar usuario
+	@GetMapping
+	public List<Usuario> findAllList() {
+		return usuarioRepository.findAll();
 	}
 
-
-	@Override
-	public ResponseEntity<Usuario> update(@Valid Long pID, Usuario pEntity) {
-		// TODO Auto-generated method stub
+	public Page<Usuario> findAllPage(Usuario pFilter, Pageable pPage) {
 		return null;
 	}
 
