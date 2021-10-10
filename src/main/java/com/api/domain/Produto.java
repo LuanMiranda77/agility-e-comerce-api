@@ -2,7 +2,6 @@ package com.api.domain;
 
 
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -18,8 +17,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
-import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
@@ -39,7 +36,7 @@ public class Produto {
 	@NotNull
 	private String codigoBarras;
 	@NotNull
-	private String nome;
+	private String titulo;
 	@NotNull
 	private BigDecimal precoVarejo;
 	@NotNull
@@ -48,6 +45,14 @@ public class Produto {
 	private Integer quantidade;
 	@NotNull
 	private String descricao;
+	@NotNull
+	private String peso;
+	@NotNull
+	private String comprimento;
+	@NotNull
+	private String altura;
+	@NotNull
+	private String largura;
 	
 	private Integer estrelas;
 

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.api.domain.Usuario;
 
-//@autor Jadson Feitosa #AE-42
+//@autor Jadson Feitosa #AE-40
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {

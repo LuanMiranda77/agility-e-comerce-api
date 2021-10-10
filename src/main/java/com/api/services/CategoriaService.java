@@ -1,26 +1,38 @@
 package com.api.services;
 
-import java.util.Optional;
-
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.api.domain.Categoria;
 import com.api.repository.CategoriaRepository;
-import com.api.services.exceptions.ObjectNotFoundException;
 
-
+//@autor Jadson Feitosa #AE-39
 
 @Service
 public class CategoriaService {
 	
-	@Autowired
-	private CategoriaRepository repo;
 
-	public Categoria find(Long id) {
-		Optional<Categoria> obj = repo.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException(
-		"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
-		}
+	@Autowired
+	private CategoriaRepository categoriaRepository;
+	
+	public Categoria save(Categoria pEntity) {
+		return categoriaRepository.save(pEntity);
 		
+	}
+	
+	public Categoria update( Categoria pEntity) {
+		Categoria categoriaSalvo = categoriaRepository.findById(pEntity.getId()).get();
+		
+		BeanUtils.copyProperties(pEntity, categoriaSalvo,"id");
+		categoriaRepository.save(categoriaSalvo);
+		categoriaSalvo.setId(pEntity.getId());
+		
+		return categoriaSalvo;
+	}
+	
+	public void isAtive(Categoria pEntity) {
+		update(pEntity);
+	}
+	
 }
