@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.domain.Categoria;
+import com.api.domain.Produto;
 import com.api.repository.CategoriaRepository;
 import com.api.services.CategoriaService;
 
@@ -46,8 +48,8 @@ public class CategoriaResource implements ResourceBase<Categoria,Long>{
 	}
 	
 //	Atualizar Categoria	
-	@PutMapping
-	public ResponseEntity<Categoria> update(@Valid Long pID, Categoria pEntity) {
+	@PutMapping("/{pID}")
+	public ResponseEntity<Categoria> update(@PathVariable Long pID, @RequestBody Categoria pEntity) {
 		Categoria categoriaSalva = categoriaService.update(pEntity);
 		return  ResponseEntity.ok(categoriaSalva);
 	}
@@ -63,6 +65,12 @@ public class CategoriaResource implements ResourceBase<Categoria,Long>{
 //	Filtro por ID
 	public ResponseEntity<Categoria> findById(@PathVariable Long pID) {
 		return ResponseEntity.ok(categoriaRepository.findById(pID).get());
+	}
+	
+	@PostMapping("/deleteall")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteAll( @RequestBody List<Categoria> pList) {
+		categoriaRepository.deleteAll(pList);
 	}
 
 

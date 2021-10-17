@@ -32,7 +32,12 @@ public class ProdutoService {
 		if(produtoRepository.existsByCodigoBarras(pEntity.getCodigoBarras())) {
 			throw new ItemExistException();
 		}
+		String [] vetor = pEntity.getDescricao().split("|");
+		pEntity.setDescricao(vetor[0]);
+		
 		Produto produtoSalvo = produtoRepository.save(pEntity);
+		System.err.println(pEntity.getDescricao());
+		pEntity.getImagens().forEach(e -> System.err.println(e));
 		return produtoSalvo;
 	}
 
