@@ -70,23 +70,8 @@ public class Produto {
 	private List<Categoria> categorias = new ArrayList<>();
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "id.produto")
-	private Set<ItemPedido> itens = new HashSet<>();
-	
-	
-
-
+	@OneToMany(mappedBy = "pedido")
+	private List<ItemPedido> pedidos = new ArrayList<ItemPedido>();
 	
 
-
-	
-
-//	@JsonIgnore
-//	public List<Pedido> getPedidos(){
-//		List<Pedido> lista = new ArrayList<>();
-//		for (ItemPedido x : itens) {
-//			lista.add(x.getPedido());
-//		}
-//		return lista;
-//	}
 }
