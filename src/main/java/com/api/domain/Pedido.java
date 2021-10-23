@@ -39,11 +39,11 @@ public class Pedido implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+//	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataDeCriacao;
 	
-	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+//	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataFechamento;
 	

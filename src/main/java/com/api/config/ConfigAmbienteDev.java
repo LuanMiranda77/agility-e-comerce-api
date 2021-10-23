@@ -86,7 +86,7 @@ public class ConfigAmbienteDev {
 		cliente.setUsusario(user);
 		cliente.setCpfCnpj("101010");
 		cliente.setTipo(TipoCliente.ATACADO);
-		cliente.setEndereco(null);
+		cliente.setEnderecos(null);
 		
 		
 		cliente = clienteRepository.save(cliente);
