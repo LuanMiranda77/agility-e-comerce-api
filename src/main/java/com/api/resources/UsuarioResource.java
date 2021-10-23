@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.domain.Usuario;
 import com.api.repository.UsuarioRepository;
+import com.api.resources.exception.LoginException;
 import com.api.services.UsuarioService;
 
 //@autor Jadson Feitosa #AE-42
@@ -37,6 +38,24 @@ public class UsuarioResource implements ResourceBase<Usuario, Long> {
 	@Autowired 
 	private UsuarioRepository usuarioRepository;
 	
+	@PostMapping("/login")
+	public ResponseEntity<Boolean> login(@RequestBody Usuario pEntity, HttpServletResponse response){
+		Usuario userSalvo = usuarioRepository.findByEmail(pEntity.getEmail());
+		
+		if(userSalvo != null) {
+			if(userSalvo.getEmail().equals(pEntity.getEmail()) 
+					&& userSalvo.getPassword().equals(pEntity.getPassword())) {
+				
+				return ResponseEntity.status(HttpStatus.ACCEPTED).body(true);
+				
+			}else {
+				throw new LoginException();
+			}
+		}else {
+			throw new LoginException();
+		}
+	}
+	
 	
 //	Salvar Usuario
 	@PostMapping
@@ -45,6 +64,22 @@ public class UsuarioResource implements ResourceBase<Usuario, Long> {
 		Usuario usuarioSalvo = usuarioService.save(pEntity);
 		return ResponseEntity.status(HttpStatus.CREATED).body(usuarioSalvo);
 	}
+	
+//	recuperar senha 
+//	--ADD --Luan Miranda - AE-10---------------------------------------------
+	@PostMapping("/recuperasenha")
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	public ResponseEntity<Boolean> recuperaSenha(@RequestBody Usuario pEntity, HttpServletResponse response) {
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(usuarioService.recuperaSenha(pEntity.getEmail()));
+	}
+	
+	@PostMapping("/email-marketing")
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	public ResponseEntity<Boolean> enviarEmailMassa(@RequestBody List<String> emails, HttpServletResponse response) {
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(usuarioService.enviarEmailMarketing(emails));
+	}
+//----------------------------------fim--------------------------------------------	
+	
 	
 //	Atualizar Usuario
 	@PutMapping

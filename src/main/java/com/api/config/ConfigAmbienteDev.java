@@ -74,7 +74,7 @@ public class ConfigAmbienteDev {
 		Random gerador = new Random();
 		
 		user = new Usuario();
-		user.setEmail("test@gmail.com");
+		user.setEmail("agilityecommerce@gmail.com");
 		user.setPassword("123456");
 		user.setLogin("admin");
 		user.setNome("ADMIN");
@@ -107,11 +107,11 @@ public class ConfigAmbienteDev {
 			produto.setAltura("20");
 			produto.setDescricao("Descrição"+i+1);
 			produto.setEstrelas(gerador.nextInt(5));
-			produto.getImagens().add(new ImagemProduto(null,"https://a-static.mlcdn.com.br/1500x1500/relogio-binbond-de-luxo-moda-esporte-ouro-relogios-pulso-relogio-casual-cronografo-sem-genero/classicosrelogioseacessorios/crabinbondprata/b2ba92809443451bf0d1e16d28003a1c.jpg", "1fdfd51fdf"));
-			produto.getImagens().add(new ImagemProduto(null,"https://images-americanas.b2w.io/produtos/01/00/img/79597/8/79597872_1GG.jpg", "1fdfd51fdf"));
-			produto.getImagens().add(new ImagemProduto(null,"https://d3ugyf2ht6aenh.cloudfront.net/stores/386/761/products/dsc08819-edit-gold11-07a7861b1e1cf702ec16186076742287-480-0.jpg", "1fdfd51fdf"));
-			produto.getImagens().add(new ImagemProduto(null,"https://m.media-amazon.com/images/I/61QHCYJIDsL._AC_SX522_.jpg", "1fdfd51fdf"));
-			produto.getImagens().add(new ImagemProduto(null,"https://images-soubarato.b2w.io/produtos/3029006799/imagens/2020-moda-masculina-minimalista-ultra-fino-relogios-simples-aco-homens-de-negocios-inoxidavel-mesh-belt-relogio-de-quartzo-relogio-masculino/3029006799_1_large.jpg", "1fdfd51fdf"));
+			produto.getImagens().add(new ImagemProduto(null,"https://a-static.mlcdn.com.br/1500x1500/relogio-binbond-de-luxo-moda-esporte-ouro-relogios-pulso-relogio-casual-cronografo-sem-genero/classicosrelogioseacessorios/crabinbondprata/b2ba92809443451bf0d1e16d28003a1c.jpg", "1fdfd51fdf", "nome"+i+1, 55d));
+			produto.getImagens().add(new ImagemProduto(null,"https://images-americanas.b2w.io/produtos/01/00/img/79597/8/79597872_1GG.jpg", "1fdfd51fdf","nome"+i+1, 55d));
+			produto.getImagens().add(new ImagemProduto(null,"https://d3ugyf2ht6aenh.cloudfront.net/stores/386/761/products/dsc08819-edit-gold11-07a7861b1e1cf702ec16186076742287-480-0.jpg", "1fdfd51fdf","nome"+i+1, 55d));
+			produto.getImagens().add(new ImagemProduto(null,"https://m.media-amazon.com/images/I/61QHCYJIDsL._AC_SX522_.jpg", "1fdfd51fdf","nome"+i+1, 55d));
+			produto.getImagens().add(new ImagemProduto(null,"https://images-soubarato.b2w.io/produtos/3029006799/imagens/2020-moda-masculina-minimalista-ultra-fino-relogios-simples-aco-homens-de-negocios-inoxidavel-mesh-belt-relogio-de-quartzo-relogio-masculino/3029006799_1_large.jpg", "1fdfd51fdf","nome"+i+1, 55d));
 			produto.getCategorias().add(categoria);
 			produtos.add(produto);
 			produto.setId(i+1l);
