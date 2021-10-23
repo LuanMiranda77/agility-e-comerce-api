@@ -5,6 +5,6 @@ public enum EstatusPagamento {
 	APROVADO,
 	CANCELADO,
 	PENDENTE
-	
+
 
 }
