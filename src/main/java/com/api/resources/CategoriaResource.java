@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.domain.Categoria;
-import com.api.domain.Produto;
 import com.api.repository.CategoriaRepository;
 import com.api.services.CategoriaService;
 
