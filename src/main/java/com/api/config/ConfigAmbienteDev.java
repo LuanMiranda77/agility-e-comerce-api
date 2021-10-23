@@ -27,6 +27,7 @@ import com.api.domain.enuns.EstatusPagamento;
 import com.api.domain.enuns.EstatusPedido;
 import com.api.domain.enuns.TipoPagamento;
 import com.api.repository.CategoriaRepository;
+import com.api.repository.ClienteRepository;
 import com.api.repository.ImagemProdutoRepository;
 import com.api.repository.PagamentoRepository;
 import com.api.repository.PedidoRepository;
@@ -52,6 +53,8 @@ public class ConfigAmbienteDev {
 	PagamentoRepository agamentoRepository;
 	@Autowired
 	PedidoRepository pedidoRepository;
+	@Autowired
+	ClienteRepository clienteRepository;
 	
 	
 	@Bean
@@ -77,7 +80,7 @@ public class ConfigAmbienteDev {
 		user.setNome("ADMIN");
 //		new BCryptPasswordEncoder().encode("123456")
 		users.add(user);
-		
+		user = userRepository.save(user);
 		
 		Cliente cliente = new Cliente();
 		cliente.setUsusario(user);
@@ -86,6 +89,7 @@ public class ConfigAmbienteDev {
 		cliente.setEndereco(null);
 		
 		
+		cliente = clienteRepository.save(cliente);
 		
 		for(int i=0;i<quantDeLoop;i++ ) {
 			categoria = new Categoria(i+1l,"categoria-test"+i);
@@ -137,7 +141,6 @@ public class ConfigAmbienteDev {
 		
 			pedido = new Pedido();
 			pedido.setCliente(cliente);
-			pedido.setDataCriacao();
 			pedido.setDataFechamento(date);
 			
 			if(i%2 == 0) {
@@ -176,7 +179,6 @@ public class ConfigAmbienteDev {
 		
 // 		salvando dados			
 		categoriaRepository.saveAll(categorias);
-		userRepository.saveAll(users);
 		produtoRepository.saveAll(produtos);
 		pedidoRepository.save(pedido);
 		
