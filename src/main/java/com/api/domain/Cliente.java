@@ -41,7 +41,7 @@ public class Cliente {
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "cliente_id")
-	private List<Endereco> endereco = new ArrayList<>();
+	private List<Endereco> enderecos = new ArrayList<>();
 	
 	private String telefone;
 	

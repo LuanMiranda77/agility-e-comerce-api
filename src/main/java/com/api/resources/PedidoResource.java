@@ -25,7 +25,7 @@ import com.api.services.PedidoService;
 //@autor Jadson Feitosa #AE-36
 
 @RestController
-@RequestMapping("/api/Pedido")
+@RequestMapping("/api/pedido")
 public class PedidoResource implements ResourceBase<Pedido, Long>{
 
 	@Autowired
