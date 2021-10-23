@@ -65,6 +65,22 @@ public class UsuarioResource implements ResourceBase<Usuario, Long> {
 		return ResponseEntity.status(HttpStatus.CREATED).body(usuarioSalvo);
 	}
 	
+//	recuperar senha 
+//	--ADD --Luan Miranda - AE-10---------------------------------------------
+	@PostMapping("/recuperasenha")
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	public ResponseEntity<Boolean> recuperaSenha(@RequestBody Usuario pEntity, HttpServletResponse response) {
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(usuarioService.recuperaSenha(pEntity.getEmail()));
+	}
+	
+	@PostMapping("/email-marketing")
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	public ResponseEntity<Boolean> enviarEmailMassa(@RequestBody List<String> emails, HttpServletResponse response) {
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(usuarioService.enviarEmailMarketing(emails));
+	}
+//----------------------------------fim--------------------------------------------	
+	
+	
 //	Atualizar Usuario
 	@PutMapping
 	public ResponseEntity<Usuario> update(@Valid Long pID, @RequestBody Usuario pEntity) {
