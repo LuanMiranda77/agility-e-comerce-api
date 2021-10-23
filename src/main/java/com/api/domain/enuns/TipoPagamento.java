@@ -4,5 +4,6 @@ public enum TipoPagamento {
 	
 	CARTAOCREDITO,
 	BOLETO,
+	
 
 }

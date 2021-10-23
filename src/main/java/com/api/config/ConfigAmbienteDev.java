@@ -1,9 +1,7 @@
 package com.api.config;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -15,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.api.domain.Categoria;
 import com.api.domain.Cliente;
@@ -24,7 +21,6 @@ import com.api.domain.ItemPedido;
 import com.api.domain.Pagamento;
 import com.api.domain.Pedido;
 import com.api.domain.Produto;
-import com.api.domain.Roles;
 import com.api.domain.TipoCliente;
 import com.api.domain.Usuario;
 import com.api.domain.enuns.EstatusPagamento;
@@ -73,25 +69,12 @@ public class ConfigAmbienteDev {
 		Pedido pedido = null;
 		
 		Random gerador = new Random();
-//		usuario para administar
+		
 		user = new Usuario();
 		user.setEmail("agilityecommerce@gmail.com");
 		user.setPassword("123456");
 		user.setLogin("admin");
 		user.setNome("ADMIN");
-		user.setRole(Roles.MASTER);
-		user.setStatus(true);
-//		new BCryptPasswordEncoder().encode("123456")
-		users.add(user);
-		
-//		usuario para cliente
-		user = new Usuario();
-		user.setEmail("test@gmail.com");
-		user.setPassword("123456");
-		user.setLogin("admin");
-		user.setNome("Torao de baixo");
-		user.setRole(Roles.CLIENTE);
-		user.setStatus(true);
 //		new BCryptPasswordEncoder().encode("123456")
 		users.add(user);
 		
