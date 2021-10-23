@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.api.exceptionhandler.GeralExceptionHandler.Erro;
 import com.api.resources.exception.LoginException;
+import com.api.services.exceptions.EmailNotExistException;
 import com.api.services.exceptions.ItemExistException;
 
 @ControllerAdvice
@@ -35,6 +36,14 @@ public class EntityException {
 	@ExceptionHandler(LoginException.class)
 	public ResponseEntity<Object> handItemExist(LoginException ex){
 		mensagemUsuario = menssageSourse.getMessage("login.erro", null, LocaleContextHolder.getLocale());
+		mensagemDesenvolvedor = ex.toString();
+		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+		return ResponseEntity.badRequest().body(erros);		
+	}
+	
+	@ExceptionHandler(EmailNotExistException.class)
+	public ResponseEntity<Object> handItemExist(EmailNotExistException ex){
+		mensagemUsuario = menssageSourse.getMessage("email.erro", null, LocaleContextHolder.getLocale());
 		mensagemDesenvolvedor = ex.toString();
 		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
 		return ResponseEntity.badRequest().body(erros);		

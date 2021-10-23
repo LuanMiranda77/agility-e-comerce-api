@@ -12,4 +12,6 @@ import com.api.domain.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
 	public Usuario findByEmail(String email);
+	
+	public boolean existsByEmail(String email);
 }
