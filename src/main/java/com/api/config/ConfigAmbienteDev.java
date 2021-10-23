@@ -24,6 +24,7 @@ import com.api.domain.ItemPedido;
 import com.api.domain.Pagamento;
 import com.api.domain.Pedido;
 import com.api.domain.Produto;
+import com.api.domain.Roles;
 import com.api.domain.TipoCliente;
 import com.api.domain.Usuario;
 import com.api.domain.enuns.EstatusPagamento;
@@ -72,12 +73,25 @@ public class ConfigAmbienteDev {
 		Pedido pedido = null;
 		
 		Random gerador = new Random();
-		
+//		usuario para administar
 		user = new Usuario();
 		user.setEmail("agilityecommerce@gmail.com");
 		user.setPassword("123456");
 		user.setLogin("admin");
 		user.setNome("ADMIN");
+		user.setRole(Roles.MASTER);
+		user.setStatus(true);
+//		new BCryptPasswordEncoder().encode("123456")
+		users.add(user);
+		
+//		usuario para cliente
+		user = new Usuario();
+		user.setEmail("test@gmail.com");
+		user.setPassword("123456");
+		user.setLogin("admin");
+		user.setNome("Torao de baixo");
+		user.setRole(Roles.CLIENTE);
+		user.setStatus(true);
 //		new BCryptPasswordEncoder().encode("123456")
 		users.add(user);
 		

@@ -4,9 +4,9 @@ package com.api.domain;
 
 public enum Roles {
 	
-	master,
-	admin,
-	cliente,
-	separador
+	MASTER,
+	ADMIN,
+	CLIENTE,
+	SEPARADOR
 
 }
