@@ -62,7 +62,7 @@ public class ConfigAmbienteDev {
 		Random gerador = new Random();
 		
 		user = new Usuario();
-		user.setEmail("agilityecommerce@gmail.com");
+		user.setEmail("test@gmail.com");
 		user.setPassword("123456");
 		user.setLogin("admin");
 		user.setNome("ADMIN");
