@@ -1,8 +1,11 @@
 package com.api.config;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -17,12 +20,20 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.api.domain.Categoria;
 import com.api.domain.Cliente;
 import com.api.domain.ImagemProduto;
+import com.api.domain.ItemPedido;
+import com.api.domain.Pagamento;
+import com.api.domain.Pedido;
 import com.api.domain.Produto;
 import com.api.domain.Roles;
 import com.api.domain.TipoCliente;
 import com.api.domain.Usuario;
+import com.api.domain.enuns.EstatusPagamento;
+import com.api.domain.enuns.EstatusPedido;
+import com.api.domain.enuns.TipoPagamento;
 import com.api.repository.CategoriaRepository;
 import com.api.repository.ImagemProdutoRepository;
+import com.api.repository.PagamentoRepository;
+import com.api.repository.PedidoRepository;
 import com.api.repository.ProdutoRepository;
 import com.api.repository.UsuarioRepository;
 
@@ -30,9 +41,6 @@ import com.api.repository.UsuarioRepository;
 @Profile("dev")
 public class ConfigAmbienteDev {
 	
-	private static final TipoCliente ATACADO = null;
-	private static final TipoCliente VAREJO = null;
-
 	@Transient
 	private int quantDeLoop=10;
 	
@@ -44,7 +52,10 @@ public class ConfigAmbienteDev {
 	CategoriaRepository categoriaRepository;
 	@Autowired
 	ImagemProdutoRepository imagemProdutoRepository;
-	
+	@Autowired
+	PagamentoRepository agamentoRepository;
+	@Autowired
+	PedidoRepository pedidoRepository;
 	
 	
 	@Bean
@@ -59,6 +70,7 @@ public class ConfigAmbienteDev {
 		Usuario user;
 		Categoria categoria;
 		Produto produto;
+		Pedido pedido = null;
 		
 		Random gerador = new Random();
 //		usuario para administar
@@ -87,14 +99,15 @@ public class ConfigAmbienteDev {
 		Cliente cliente = new Cliente();
 		cliente.setUsusario(user);
 		cliente.setCpfCnpj("101010");
-		cliente.setTipo(ATACADO);
+		cliente.setTipo(TipoCliente.ATACADO);
 		cliente.setEndereco(null);
+		
 		
 		
 		for(int i=0;i<quantDeLoop;i++ ) {
 			categoria = new Categoria(i+1l,"categoria-test"+i);
 			categorias.add(categoria);
-			
+
 			BigDecimal b = new BigDecimal(1.8);
 			produto = new Produto();
 			produto.setCodigoBarras("154587878"+i+1);
@@ -116,14 +129,73 @@ public class ConfigAmbienteDev {
 			produto.getCategorias().add(categoria);
 			produtos.add(produto);
 			produto.setId(i+1l);
+
+			Pagamento pagamento = new Pagamento();
+			pagamento.setNumeroDeParcelas(i+1);
+			
+			Date date = new Date();
+			Calendar c = Calendar.getInstance();
+			c.setTime(date);
+			c.add(Calendar.DATE, 3);
+			date = c.getTime();
+
+			if(i%2 == 0) {
+				pagamento.setTipo(TipoPagamento.CARTAOCREDITO);
+				pagamento.setEstatus(EstatusPagamento.APROVADO);
+				
+			}else {
+				pagamento.setTipo(TipoPagamento.BOLETO);
+				pagamento.setEstatus(EstatusPagamento.APROVADO);
+				pagamento.setDataPagamento(new Date());
+				
+		        pagamento.setDataVenciemtno(date);
+				
+			}
+		
+			pedido = new Pedido();
+			pedido.setCliente(cliente);
+			pedido.setDataCriacao();
+			pedido.setDataFechamento(date);
+			
+			if(i%2 == 0) {
+				pedido.setEstatus(EstatusPedido.FINALIZADO);
+			
+			}else {
+				pedido.setEstatus(EstatusPedido.CANCELADO);
+			}
+			
+			ItemPedido itens = new ItemPedido();
+			itens.setPedido(pedido);
+			itens.setProduto(produto);
+			itens.setQuantidadeVendida(5);
+			
+			ItemPedido itens2 = new ItemPedido();
+			itens2.setPedido(pedido);
+			itens2.setProduto(produto);
+			itens2.setQuantidadeVendida(5);
+			
+			ItemPedido itens3 = new ItemPedido();
+			itens3.setPedido(pedido);
+			itens3.setProduto(produto);
+			itens3.setQuantidadeVendida(5);
+			
+			ArrayList<ItemPedido> itensPedido = new ArrayList<ItemPedido>();
+			itensPedido.add(itens3);
+			itensPedido.add(itens2);
+			itensPedido.add(itens);
+			
+			pedido.setPagamento(pagamento);
+			pedido.setProdutos(itensPedido);
+			
+			
+			
 		}
 		
 // 		salvando dados			
 		categoriaRepository.saveAll(categorias);
 		userRepository.saveAll(users);
 		produtoRepository.saveAll(produtos);
-
-		
+		pedidoRepository.save(pedido);
 		
 	}
 
