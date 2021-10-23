@@ -57,8 +57,8 @@ public class Pedido implements Serializable {
 	private Cliente cliente;
 	
 	@OneToOne
-	@Column(name = "endereco_id")
-	private Endereco enderecoDeEntrega;
+	@JoinColumn(name = "endereco_id")
+	private EnderecoDeEntrega enderecoDeEntrega;
 	
 	@OneToMany(mappedBy = "produto")
 	private List<ItemPedido> produtos = new ArrayList<ItemPedido>();
