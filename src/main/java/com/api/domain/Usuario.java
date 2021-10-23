@@ -49,7 +49,7 @@ public class Usuario {
 	private String password;
 	
 	@NotNull
-	@Enumerated(EnumType.ORDINAL)
+	@Enumerated(EnumType.STRING)
 	private Roles role;
 
 	@PrePersist

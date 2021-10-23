@@ -1,6 +1,7 @@
 package com.api.resources;
 
 import java.awt.print.Pageable;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -14,18 +15,21 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.domain.Pedido;
 import com.api.repository.PedidoRepository;
+import com.api.services.DashboardService;
 import com.api.services.PedidoService;
+import com.api.services.filter.Dashboard;
 
 //@autor Jadson Feitosa #AE-36
 
 @RestController
-@RequestMapping("/api/Pedido")
+@RequestMapping("/api/pedido")
 public class PedidoResource implements ResourceBase<Pedido, Long>{
 
 	@Autowired
@@ -33,6 +37,10 @@ public class PedidoResource implements ResourceBase<Pedido, Long>{
 	
 	@Autowired
 	private PedidoRepository pedidoRepository;
+	
+	@Autowired
+	private DashboardService dashboardService;
+	
 
 //	Salvar Pedido
 	@PostMapping
@@ -72,6 +80,13 @@ public class PedidoResource implements ResourceBase<Pedido, Long>{
 	public Page<Pedido> findAllPage(Pedido pFilter, Pageable pPage) {
 		return null;
 	}
+	
+	@GetMapping("/dashboard")
+	public Dashboard findDashboard(@RequestBody Pedido pedido) {
+		return dashboardService.findDesthboard(pedido.getDataDeCriacao(), pedido.getDataFechamento());
+	}
+
+	
 	
 	
 }
