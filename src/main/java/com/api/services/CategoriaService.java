@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.api.domain.Categoria;
 import com.api.repository.CategoriaRepository;
+import com.api.services.exceptions.CategoriaExistException;
 
 //@autor Jadson Feitosa #AE-39
 
@@ -17,6 +18,9 @@ public class CategoriaService {
 	private CategoriaRepository categoriaRepository;
 	
 	public Categoria save(Categoria pEntity) {
+		
+		testeExistCategoria(pEntity);
+		
 		return categoriaRepository.save(pEntity);
 		
 	}
@@ -29,6 +33,12 @@ public class CategoriaService {
 		categoriaSalvo.setId(pEntity.getId());
 		
 		return categoriaSalvo;
+	}
+	
+	public void testeExistCategoria(Categoria pEntity) {
+		if(categoriaRepository.existsByNome(pEntity.getNome())) {
+			throw new CategoriaExistException();
+		}
 	}
 	
 	public void isAtive(Categoria pEntity) {
