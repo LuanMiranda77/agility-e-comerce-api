@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.api.domain.Usuario;
 import com.api.repository.UsuarioRepository;
 import com.api.services.exceptions.EmailNotExistException;
+import com.api.services.exceptions.UsuarioExistException;
 
 //@autor Jadson Feitosa #AE-42
 
@@ -24,8 +25,14 @@ public class UsuarioService {
 	private EmailService emailService;
 	
 	public Usuario save(Usuario pEntity) {
-		testeExistUsuario(pEntity.getEmail());
-		return usuarioRepository.save(pEntity);
+		Usuario userSalvo =null;
+		
+		if(usuarioRepository.existsByEmail(pEntity.getEmail())) {
+			throw new UsuarioExistException();
+		}
+		
+		userSalvo = usuarioRepository.save(pEntity);
+		return userSalvo;
 		
 	}
 	

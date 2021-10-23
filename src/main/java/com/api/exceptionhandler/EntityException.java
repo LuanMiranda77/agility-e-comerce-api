@@ -14,6 +14,7 @@ import com.api.exceptionhandler.GeralExceptionHandler.Erro;
 import com.api.resources.exception.LoginException;
 import com.api.services.exceptions.EmailNotExistException;
 import com.api.services.exceptions.ItemExistException;
+import com.api.services.exceptions.UsuarioExistException;
 
 @ControllerAdvice
 public class EntityException {
@@ -36,6 +37,14 @@ public class EntityException {
 	@ExceptionHandler(LoginException.class)
 	public ResponseEntity<Object> handItemExist(LoginException ex){
 		mensagemUsuario = menssageSourse.getMessage("login.erro", null, LocaleContextHolder.getLocale());
+		mensagemDesenvolvedor = ex.toString();
+		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+		return ResponseEntity.badRequest().body(erros);		
+	}
+	
+	@ExceptionHandler(UsuarioExistException.class)
+	public ResponseEntity<Object> handItemExist(UsuarioExistException ex){
+		mensagemUsuario = menssageSourse.getMessage("emial.existe", null, LocaleContextHolder.getLocale());
 		mensagemDesenvolvedor = ex.toString();
 		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
 		return ResponseEntity.badRequest().body(erros);		

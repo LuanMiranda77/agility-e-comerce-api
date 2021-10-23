@@ -39,14 +39,14 @@ public class UsuarioResource implements ResourceBase<Usuario, Long> {
 	private UsuarioRepository usuarioRepository;
 	
 	@PostMapping("/login")
-	public ResponseEntity<Boolean> login(@RequestBody Usuario pEntity, HttpServletResponse response){
+	public ResponseEntity<Usuario> login(@RequestBody Usuario pEntity, HttpServletResponse response){
 		Usuario userSalvo = usuarioRepository.findByEmail(pEntity.getEmail());
 		
 		if(userSalvo != null) {
 			if(userSalvo.getEmail().equals(pEntity.getEmail()) 
 					&& userSalvo.getPassword().equals(pEntity.getPassword())) {
 				
-				return ResponseEntity.status(HttpStatus.ACCEPTED).body(true);
+				return ResponseEntity.status(HttpStatus.ACCEPTED).body(userSalvo);
 				
 			}else {
 				throw new LoginException();
