@@ -6,6 +6,5 @@ public enum EstatusPedido {
 	PENDENTE,
 	FINALIZADO,
 	CANCELADO;
-	
 
 }
