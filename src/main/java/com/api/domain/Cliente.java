@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.api.domain.enuns.TipoCliente;
 import com.sun.istack.NotNull;
 
 import lombok.Data;

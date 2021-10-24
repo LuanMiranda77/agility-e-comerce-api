@@ -12,8 +12,8 @@ import javax.persistence.criteria.Root;
 import org.springframework.stereotype.Service;
 
 import com.api.domain.Pedido;
-import com.api.domain.TipoCliente;
 import com.api.domain.enuns.EstatusPedido;
+import com.api.domain.enuns.TipoCliente;
 import com.api.services.filter.Dashboard;
 import com.api.services.filter.Relatorio;
 
