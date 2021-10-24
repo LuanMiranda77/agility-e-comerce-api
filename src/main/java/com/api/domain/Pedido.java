@@ -3,12 +3,12 @@ package com.api.domain;
 
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -39,11 +39,11 @@ public class Pedido implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-//	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataDeCriacao;
 	
-//	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataFechamento;
 	
@@ -63,9 +63,11 @@ public class Pedido implements Serializable {
 	@OneToMany(mappedBy = "produto")
 	private List<ItemPedido> produtos = new ArrayList<ItemPedido>();
 	
-	private double valorTotal;
+	private BigDecimal valorTotal;
 	
-	private double valorFrete;
+	private BigDecimal valorDesconto;
+	
+	private BigDecimal valorFrete;
 	
 	@Enumerated(EnumType.STRING)
 	private EstatusPedido estatus;
