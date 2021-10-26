@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.api.domain.enuns.TipoCliente;
 import com.sun.istack.NotNull;
 
 import lombok.Data;
@@ -41,7 +42,7 @@ public class Cliente {
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "cliente_id")
-	private List<Endereco> endereco = new ArrayList<>();
+	private List<Endereco> enderecos = new ArrayList<>();
 	
 	private String telefone;
 	
