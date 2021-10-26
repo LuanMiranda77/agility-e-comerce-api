@@ -27,12 +27,12 @@ public class Dashboard implements Serializable{
 	private BigDecimal totalVarejoBoleto;
 	private BigDecimal totalAtacadoCredito;
 	private BigDecimal totalAtacadoBoleto;
-	private List<Double> arrayVendaPorHoras;
-	private Categorias arrayVendaPorCategorias;
-	private List<Double> arrayFormasPagamentos;
-	private Clientes arrayTopClientes;
-	private List<Double> arrayFaturamentoAnual;
-	private List<Double> arrayFaturamentoMensal; 
+	private List<Number> arrayVendaPorHoras;
+	private List<Categorias> arrayVendaPorCategorias;
+	private List<Number> arrayFormasPagamentos;
+	private List<Clientes> arrayTopClientes;
+	private List<Number> arrayFaturamentoAnual;
+	private List<Number> arrayFaturamentoMensal; 
     
 	
 

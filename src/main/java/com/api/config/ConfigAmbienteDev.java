@@ -21,10 +21,10 @@ import com.api.domain.ItemPedido;
 import com.api.domain.Pagamento;
 import com.api.domain.Pedido;
 import com.api.domain.Produto;
-import com.api.domain.TipoCliente;
 import com.api.domain.Usuario;
 import com.api.domain.enuns.EstatusPagamento;
 import com.api.domain.enuns.EstatusPedido;
+import com.api.domain.enuns.TipoCliente;
 import com.api.domain.enuns.TipoPagamento;
 import com.api.repository.CategoriaRepository;
 import com.api.repository.ClienteRepository;
@@ -64,6 +64,7 @@ public class ConfigAmbienteDev {
 		List<Produto>produtos = new ArrayList<>();
 		List<Usuario>users = new ArrayList<>();
 		List<Categoria>categorias = new ArrayList<>();
+		List<Pedido>pedidos = new ArrayList<>();
 		
 // 		setando dados dos usuarios		
 		Usuario user;
@@ -147,7 +148,7 @@ public class ConfigAmbienteDev {
 				pedido.setEstatus(EstatusPedido.FINALIZADO);
 			
 			}else {
-				pedido.setEstatus(EstatusPedido.CANCELADO);
+				pedido.setEstatus(EstatusPedido.PENDENTE);
 			}
 			
 			ItemPedido itens = new ItemPedido();
@@ -173,6 +174,10 @@ public class ConfigAmbienteDev {
 			pedido.setPagamento(pagamento);
 			pedido.setProdutos(itensPedido);
 			
+			pedido.setValorTotal((produto.getPrecoVarejo().multiply(new BigDecimal(itens.getQuantidadeVendida()))));
+			
+			pedidos.add(pedido);
+			
 			
 			
 		}
@@ -180,7 +185,7 @@ public class ConfigAmbienteDev {
 // 		salvando dados			
 		categoriaRepository.saveAll(categorias);
 		produtoRepository.saveAll(produtos);
-		pedidoRepository.save(pedido);
+		pedidoRepository.saveAll(pedidos);
 		
 	}
 

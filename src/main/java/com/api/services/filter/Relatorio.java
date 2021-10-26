@@ -8,9 +8,9 @@ import lombok.Data;
 public class Relatorio {
 	
 	private BigDecimal total;
-	private Integer quantidade;
+	private Long quantidade;
 	
-	public Relatorio(BigDecimal total, Integer quantidade) {
+	public Relatorio(BigDecimal total, Long quantidade) {
 		super();
 		this.total = total;
 		this.quantidade = quantidade;
