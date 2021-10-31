@@ -24,6 +24,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.api.domain.enuns.EstatusPedido;
+import com.api.utils.UtilsHorasData;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
@@ -74,7 +75,7 @@ public class Pedido implements Serializable {
 	
 	@PrePersist
 	public void setDataCriacao() {
-		this.dataDeCriacao = new Date();
+		this.dataDeCriacao = UtilsHorasData.subtrair(new Date(), 3);
 	}
 	
 }

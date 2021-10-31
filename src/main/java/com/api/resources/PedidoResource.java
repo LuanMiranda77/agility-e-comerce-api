@@ -81,7 +81,7 @@ public class PedidoResource implements ResourceBase<Pedido, Long>{
 		return null;
 	}
 	
-	@GetMapping("/dashboard")
+	@PostMapping("/dashboard")
 	public Dashboard findDashboard(@RequestBody Pedido pedido) {
 		return dashboardService.findDesthboard(pedido.getDataDeCriacao(), pedido.getDataFechamento());
 	}

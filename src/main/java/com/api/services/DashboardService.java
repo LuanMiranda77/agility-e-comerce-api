@@ -2,11 +2,11 @@ package com.api.services;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import javax.mail.FetchProfile.Item;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -42,8 +42,8 @@ public class DashboardService {
 
 		dashboard.setTicketMedio(tiketMedia(builder, dataInicio, dataFinal));
 		dashboard.setTotalPedidoRealizado(findPedidoRealizado(builder, dataInicio, dataFinal));
-		dashboard.setTotalPedidoPago(findPedidosByTipoPedido(builder, dataInicio, dataFinal, EstatusPedido.FINALIZADO));
-		dashboard.setTotalPedidoCancelado(findPedidosByTipoPedido(builder, dataInicio, dataFinal, EstatusPedido.CANCELADO));
+		dashboard.setTotalPedidoPago(findPedidosByStatusPedido(builder, dataInicio, dataFinal, EstatusPedido.FINALIZADO));
+		dashboard.setTotalPedidoCancelado(findPedidosByStatusPedido(builder, dataInicio, dataFinal, EstatusPedido.CANCELADO));
 		dashboard.setTotalGeralMes(dashboard.getTotalPedidoPago().getTotal());
 		dashboard.setTotalGeralMesPassado(totalGeralMesPassado(builder, dataInicio, dataFinal));
 		dashboard.setTotalVarejo(findTotalPedidoByTipoCliente(builder, dataInicio, dataFinal,EstatusPedido.FINALIZADO, TipoCliente.VAREJO));
@@ -72,11 +72,13 @@ public class DashboardService {
 		query.where(builder.between(root.get("dataFechamento"), dataInicio, dataFinal));
 
 		relatorio = manager.createQuery(query).getSingleResult();
+		
 		if (relatorio.getTotal() == null) {
 			relatorio.setTotal(new BigDecimal(0));
+		}else {	
+			relatorio.setTotal(relatorio.getTotal().divide(new BigDecimal(relatorio.getQuantidade())));
 		}
 
-		relatorio.setTotal(relatorio.getTotal().divide(new BigDecimal(relatorio.getQuantidade())));
 
 		return relatorio;
 
@@ -100,7 +102,7 @@ public class DashboardService {
 
 	}
 
-	public Relatorio findPedidosByTipoPedido(CriteriaBuilder builder, Date dataInicio, Date dataFinal,
+	public Relatorio findPedidosByStatusPedido(CriteriaBuilder builder, Date dataInicio, Date dataFinal,
 			EstatusPedido estatusPedido) {
 
 		Relatorio relatorio = new Relatorio();
@@ -112,31 +114,13 @@ public class DashboardService {
 				builder.and(builder.equal(root.get("estatus"), estatusPedido)));
 
 		relatorio = manager.createQuery(query).getSingleResult();
+		
 		if (relatorio.getTotal() == null) {
 			relatorio.setTotal(new BigDecimal(0));
 		}
 
 		return relatorio;
 	}
-
-//	public Relatorio pedidoCancelados(CriteriaBuilder builder, Date dataInicio, Date dataFinal) {
-//
-//		Relatorio relatorio = new Relatorio();
-//		CriteriaQuery<Relatorio> query = builder.createQuery(Relatorio.class);
-//		Root<Pedido> root = query.from(Pedido.class);
-//
-//		query.multiselect(builder.sum(root.<BigDecimal>get("valorTotal")), builder.count(root));
-//		query.where(builder.between(root.get("dataFechamento"), dataInicio, dataFinal),
-//				builder.and(builder.equal(root.get("estatus"), EstatusPedido.CANCELADO)));
-//		
-//		relatorio =  manager.createQuery(query).getSingleResult();
-//		
-//		if(relatorio.getTotal() == null) {
-//			relatorio.setTotal(new BigDecimal(0));
-//		}
-//
-//		return relatorio;
-//	}
 
 	public BigDecimal totalGeralMesPassado(CriteriaBuilder builder, Date dataInicio, Date dataFinal) {
 
@@ -145,6 +129,8 @@ public class DashboardService {
 		Root<Pedido> root = query.from(Pedido.class);
 
 		Date dtInicio = UtilsMesData.subtrair(dataInicio, 1);
+		dtInicio = UtilsMesData.getPrimeiroDiaMesByData(dtInicio);
+		dataFinal = UtilsMesData.getUltimoDiaMesByData(dtInicio);
 
 		query.select(builder.sum(root.<BigDecimal>get("valorTotal")));
 		query.where(builder.between(root.get("dataFechamento"), dtInicio, dataFinal),
@@ -211,13 +197,14 @@ public class DashboardService {
 		if (tipoPeriodo.equals(TipoPeriodo.HORA)) {
 			
 			listaResul = new ArrayList<Number>();
-			
-			for (int i = 1; i <= 12; i++) {
-				Date dtInicio = UtilsHorasData.subtrair(dataInicio, i);
+			int j=0;
+			for (int i = 0; i <= 12; i++) {
+				Date dtInicio = UtilsHorasData.subtrair(dataInicio, ++j);
+				Date dtFinal = UtilsHorasData.subtrair(dataFinal, i);
 
 				query.select(builder.sum(root.<BigDecimal>get("valorTotal")));
-				query.where(builder.between(root.get("dataFechamento"), dtInicio, dataFinal),
-						builder.and(builder.equal(root.get("estatus"), EstatusPedido.FINALIZADO)));
+				query.where(builder.between(root.get("dataFechamento"), dtInicio, dtFinal),
+							builder.and(builder.equal(root.get("estatus"), EstatusPedido.FINALIZADO)));
 
 				total = (BigDecimal) manager.createQuery(query).getSingleResult();
 
@@ -229,36 +216,66 @@ public class DashboardService {
 			}
 		}else if (tipoPeriodo.equals(TipoPeriodo.MES)) {
 			
-			listaResul = new ArrayList<Number>();
+			listaResul = new ArrayList<Number>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
 			
-			for (int i = 1; i <= 12; i++) {
+			for (int i = 0; i <= 11; i++) {
 
 				Date dtInicio = UtilsMesData.subtrair(dataInicio, i);
-
+				dtInicio = UtilsMesData.getPrimeiroDiaMesByData(dtInicio);
+				dataFinal = UtilsMesData.getUltimoDiaMesByData(dtInicio);
+		
 				query.select(builder.sum(root.<BigDecimal>get("valorTotal")));
 				query.where(builder.between(root.get("dataFechamento"), dtInicio, dataFinal),
-						builder.and(builder.equal(root.get("estatus"), EstatusPedido.FINALIZADO)));
+							builder.and(builder.equal(root.get("estatus"), EstatusPedido.FINALIZADO)));
 
 				total = (BigDecimal) manager.createQuery(query).getSingleResult();
 
 				if (total == null) {
 					total = new BigDecimal(0);
 				}
+				
+				if(UtilsMesData.getMesByData(dtInicio)==0) {
+					listaResul.set(0, total);
+				}else if(UtilsMesData.getMesByData(dtInicio)==1) {
+					listaResul.set(1, total);
+				}else if(UtilsMesData.getMesByData(dtInicio)==2) {
+					listaResul.set(2, total);
+				}else if(UtilsMesData.getMesByData(dtInicio)==3) {
+					listaResul.set(3, total);
+				}else if(UtilsMesData.getMesByData(dtInicio)==4) {
+					listaResul.set(4, total);
+				}else if(UtilsMesData.getMesByData(dtInicio)==5) {
+					listaResul.set(5, total);
+				}else if(UtilsMesData.getMesByData(dtInicio)==6) {
+					listaResul.set(6, total);
+				}else if(UtilsMesData.getMesByData(dtInicio)==7) {
+					listaResul.set(7, total);
+				}else if(UtilsMesData.getMesByData(dtInicio)==8) {
+					listaResul.set(8, total);
+				}else if(UtilsMesData.getMesByData(dtInicio)==9) {
+					listaResul.set(9, total);
+				}else if(UtilsMesData.getMesByData(dtInicio)==10) {
+					listaResul.set(10, total);
+				}else {
+					listaResul.set(11, total);
+				}
 
-				listaResul.add(total);
+				
 			}
 
 		}else if (tipoPeriodo.equals(TipoPeriodo.ANO)) {
 			
-			listaResul = new ArrayList<Number>();
-
-			for (int i = 1; i <= 12; i++) {
+			listaResul = new ArrayList<Number>(Arrays.asList(0, 0, 0, 0, 0));
+			int j=5;
+			for (int i = 0; i < 5; i++) {
 
 				Date dtInicio = UtilsAnoData.subtrair(dataInicio, i);
-
+				dtInicio = UtilsAnoData.getPrimeiroDiaAnoByData(dtInicio);
+				dataFinal = UtilsAnoData.getUltimoDiaAnoByData(dtInicio);
+				
 				query.select(builder.sum(root.<BigDecimal>get("valorTotal")));
 				query.where(builder.between(root.get("dataFechamento"), dtInicio, dataFinal),
-						builder.and(builder.equal(root.get("estatus"), EstatusPedido.FINALIZADO)));
+							builder.and(builder.equal(root.get("estatus"), EstatusPedido.FINALIZADO)));
 
 				total = (BigDecimal) manager.createQuery(query).getSingleResult();
 
@@ -266,9 +283,9 @@ public class DashboardService {
 					total = new BigDecimal(0);
 				}
 
-				listaResul.add(total);
+				listaResul.set(--j, total);
 			}
-
+			Collections.reverse(Arrays.asList(listaResul));
 		}
 		
 		return listaResul;
@@ -283,16 +300,15 @@ public class DashboardService {
 		CriteriaQuery<Categorias> query = builder.createQuery(Categorias.class);
 		Root<ItemPedido> root = query.from(ItemPedido.class);
 
-		query.multiselect(builder.sum(root.<Integer>get("quantidadeVendida")), root.get("produto").get("titulo"));
-		query.where(builder.between(root.get("dataFechamento"), dataInicio, dataFinal),
-				builder.and(builder.equal(root.get("estatus"), estatusPedido))
-				).groupBy(root.get("produto").get("titulo"));
-		query.orderBy(builder.asc(builder.sum(root.<Integer>get("quantidadeVendida"))));
+		query.multiselect(root.get("produto").get("titulo"),  builder.count(root));
+		query.where(builder.between(root.get("dataVenda"), dataInicio, dataFinal));
+		query.groupBy(root.get("produto").get("titulo"));
+		query.orderBy(builder.desc(builder.count(root)));
 
 		categorias = manager.createQuery(query).setMaxResults(10).getResultList();
 		
 		if (categoria.getValor() == null) {
-			categoria.setValor(new BigDecimal(0));
+			categoria.setValor(0l);
 		}
 
 		return categorias;
@@ -310,25 +326,29 @@ public class DashboardService {
 
 		query.select(builder.sum(root.<BigDecimal>get("valorTotal")));
 		query.where(builder.between(root.get("dataFechamento"), dataInicio, dataFinal),
-				builder.and(builder.equal(root.get("estatus"), estatusPeido),
-						builder.and(builder.equal(root.get("pagamento").get("tipo"), TipoPagamento.BOLETO))));
+					builder.and(builder.equal(root.get("estatus"), estatusPeido),
+					builder.and(builder.equal(root.get("pagamento").get("tipo"), TipoPagamento.BOLETO))));
 
 		total = (BigDecimal) manager.createQuery(query).getSingleResult();
 		
 		if (total == null) {
 			total = new BigDecimal(0);
 			listaResul.add(total);
+		}else {
+			listaResul.add(total);
 		}
 		
 		query.select(builder.sum(root.<BigDecimal>get("valorTotal")));
 		query.where(builder.between(root.get("dataFechamento"), dataInicio, dataFinal),
-				builder.and(builder.equal(root.get("estatus"), estatusPeido),
-						builder.and(builder.equal(root.get("pagamento").get("tipo"), TipoPagamento.CARTAOCREDITO))));
+					builder.and(builder.equal(root.get("estatus"), estatusPeido),
+					builder.and(builder.equal(root.get("pagamento").get("tipo"), TipoPagamento.CARTAOCREDITO))));
 
 		total = (BigDecimal) manager.createQuery(query).getSingleResult();
 		
 		if (total == null) {
 			total = new BigDecimal(0);
+			listaResul.add(total);
+		}else {
 			listaResul.add(total);
 		}
 		
@@ -340,23 +360,24 @@ public class DashboardService {
 	public List<Clientes> findPedidosByTopDezCliente(CriteriaBuilder builder, Date dataInicio, Date dataFinal,
 			EstatusPedido estatusPedido) {
 
-		Categorias categoria = new Categorias();
 		
 		List<Clientes> clientes = new ArrayList<>();
 		CriteriaQuery<Clientes> query = builder.createQuery(Clientes.class);
 		Root<Pedido> root = query.from(Pedido.class);
 
-		query.multiselect(builder.sum(root.<BigDecimal>get("valorTotal")), root.get("cliente").get("ususario").get("nome"));
+		query.multiselect(root.get("cliente").get("ususario").get("nome"),builder.sum(root.<BigDecimal>get("valorTotal")));
 		query.where(builder.between(root.get("dataFechamento"), dataInicio, dataFinal),
 				builder.and(builder.equal(root.get("estatus"), estatusPedido)));
-		
-		query.orderBy(builder.asc(builder.sum(root.<BigDecimal>get("valorTotal"))));
+		query.groupBy(root.get("cliente").get("ususario").get("nome"));
+		query.orderBy(builder.desc(builder.sum(root.<BigDecimal>get("valorTotal"))));
 
 		clientes = manager.createQuery(query).setMaxResults(10).getResultList();
 		
-		if (categoria.getValor() == null) {
-			categoria.setValor(new BigDecimal(0));
-		}
+		clientes.forEach(e -> {
+			if(e.getValor() == null) {
+				e.setValor(new BigDecimal(0));
+			}
+		});;
 
 		return clientes;
 	}
