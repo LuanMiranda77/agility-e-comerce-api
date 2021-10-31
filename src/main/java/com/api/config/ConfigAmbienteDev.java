@@ -33,6 +33,8 @@ import com.api.repository.PagamentoRepository;
 import com.api.repository.PedidoRepository;
 import com.api.repository.ProdutoRepository;
 import com.api.repository.UsuarioRepository;
+import com.api.services.PedidoService;
+import com.api.utils.UtilsHorasData;
 
 @Configuration
 @Profile("dev")
@@ -55,6 +57,8 @@ public class ConfigAmbienteDev {
 	PedidoRepository pedidoRepository;
 	@Autowired
 	ClienteRepository clienteRepository;
+	@Autowired
+	PedidoService pedidoService;
 	
 	
 	@Bean
@@ -121,11 +125,7 @@ public class ConfigAmbienteDev {
 			Pagamento pagamento = new Pagamento();
 			pagamento.setNumeroDeParcelas(i+1);
 			
-			Date date = new Date();
-			Calendar c = Calendar.getInstance();
-			c.setTime(date);
-			c.add(Calendar.DATE, 3);
-			date = c.getTime();
+			Date date = UtilsHorasData.subtrair(new Date(), 3);
 
 			if(i%2 == 0) {
 				pagamento.setTipo(TipoPagamento.CARTAOCREDITO);
@@ -148,23 +148,25 @@ public class ConfigAmbienteDev {
 				pedido.setEstatus(EstatusPedido.FINALIZADO);
 			
 			}else {
-				pedido.setEstatus(EstatusPedido.PENDENTE);
+				pedido.setEstatus(EstatusPedido.CANCELADO);
 			}
+			
+			
 			
 			ItemPedido itens = new ItemPedido();
 			itens.setPedido(pedido);
 			itens.setProduto(produto);
-			itens.setQuantidadeVendida(5);
+			itens.setQuantidadeVendida(2);
 			
 			ItemPedido itens2 = new ItemPedido();
 			itens2.setPedido(pedido);
 			itens2.setProduto(produto);
-			itens2.setQuantidadeVendida(5);
+			itens2.setQuantidadeVendida(3);
 			
 			ItemPedido itens3 = new ItemPedido();
 			itens3.setPedido(pedido);
 			itens3.setProduto(produto);
-			itens3.setQuantidadeVendida(5);
+			itens3.setQuantidadeVendida(10);
 			
 			ArrayList<ItemPedido> itensPedido = new ArrayList<ItemPedido>();
 			itensPedido.add(itens3);
@@ -176,6 +178,7 @@ public class ConfigAmbienteDev {
 			
 			pedido.setValorTotal((produto.getPrecoVarejo().multiply(new BigDecimal(itens.getQuantidadeVendida()))));
 			
+			
 			pedidos.add(pedido);
 			
 			
@@ -185,7 +188,7 @@ public class ConfigAmbienteDev {
 // 		salvando dados			
 		categoriaRepository.saveAll(categorias);
 		produtoRepository.saveAll(produtos);
-		pedidoRepository.saveAll(pedidos);
+		pedidos.forEach(e -> pedidoService.save(e));
 		
 	}
 

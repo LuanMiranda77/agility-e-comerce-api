@@ -18,5 +18,21 @@ public class UtilsAnoData {
 		calendar.add(Calendar.YEAR, ano);
 		return calendar.getTime();
 	}
+	
+	public static Date getUltimoDiaAnoByData( Date data) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(data);
+		calendar.set(Calendar.MONTH, 11);
+		calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+		return calendar.getTime();
+	}
+	
+	public static Date getPrimeiroDiaAnoByData( Date data) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(data);
+		calendar.set(Calendar.MONTH, 0);
+		calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMinimum(Calendar.DAY_OF_MONTH));
+		return calendar.getTime();
+	}
 
 }
