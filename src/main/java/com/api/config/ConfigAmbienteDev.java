@@ -2,7 +2,6 @@ package com.api.config;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -88,7 +87,7 @@ public class ConfigAmbienteDev {
 		user = userRepository.save(user);
 		
 		Cliente cliente = new Cliente();
-		cliente.setUsusario(user);
+		cliente.setUsuario(user);
 		cliente.setCpfCnpj("101010");
 		cliente.setTipo(TipoCliente.ATACADO);
 		cliente.setEnderecos(null);
@@ -136,7 +135,7 @@ public class ConfigAmbienteDev {
 				pagamento.setEstatus(EstatusPagamento.APROVADO);
 				pagamento.setDataPagamento(new Date());
 				
-		        pagamento.setDataVenciemtno(date);
+		        pagamento.setDataVencimento(date);
 				
 			}
 		

@@ -26,6 +26,7 @@ import javax.persistence.TemporalType;
 import com.api.domain.enuns.EstatusPedido;
 import com.api.utils.UtilsHorasData;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 
@@ -61,14 +62,15 @@ public class Pedido implements Serializable {
 	@JoinColumn(name = "endereco_id")
 	private EnderecoDeEntrega enderecoDeEntrega;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "produto")
 	private List<ItemPedido> produtos = new ArrayList<ItemPedido>();
 	
-	private BigDecimal valorTotal;
+	private BigDecimal valorTotal = new BigDecimal(0);
 	
-	private BigDecimal valorDesconto;
+	private BigDecimal valorDesconto = new BigDecimal(0);
 	
-	private BigDecimal valorFrete;
+	private BigDecimal valorFrete = new BigDecimal(0);
 	
 	@Enumerated(EnumType.STRING)
 	private EstatusPedido estatus;

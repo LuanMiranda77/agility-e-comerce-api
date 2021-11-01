@@ -2,6 +2,7 @@ package com.api.services;
 
 
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -10,8 +11,10 @@ import org.springframework.stereotype.Service;
 
 import com.api.domain.ItemPedido;
 import com.api.domain.Pedido;
+import com.api.domain.enuns.EstatusPedido;
 import com.api.repository.ItemPedidoRepository;
 import com.api.repository.PedidoRepository;
+import com.api.services.filter.PedidoQueryImpl;
 
 //@autor Jadson Feitosa #AE-36
 
@@ -23,6 +26,9 @@ public class PedidoService {
 	
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
+	
+	@Autowired
+	private PedidoQueryImpl pedidoQueryImpl;
 	
 	public Pedido save(Pedido pEntity) {
 		List<ItemPedido>itemPedidos = pEntity.getProdutos();
@@ -50,6 +56,10 @@ public class PedidoService {
 	
 	public void isAtive(Pedido pEntity) {
 		update(pEntity);
+	}
+	
+	public  List<Pedido> findPedidosByEstatus(Date dtIni, Date dtFin, EstatusPedido estatusPedido){
+		return pedidoQueryImpl.findPedidosByEstatus(dtIni, dtFin, estatusPedido);
 	}
 		
 }

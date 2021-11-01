@@ -31,7 +31,7 @@ public class Cliente {
 	
 	@OneToOne
 	@JoinColumn(name = "usuario_id")
-	private Usuario ususario;
+	private Usuario usuario;
 	
 	@NotNull
 	private String cpfCnpj;

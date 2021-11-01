@@ -48,3 +48,10 @@ MANIFEST.MF
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/target/classes/com/api/config/SecurityOauth2.class
+/target/classes/com/api/domain/Cliente.class
+/target/classes/com/api/domain/Pagamento.class
+/target/classes/com/api/domain/Pedido.class
+/target/classes/com/api/repository/PedidoRepository.class
+/target/classes/com/api/resources/PedidoResource.class
+/target/classes/com/api/services/PedidoService.class

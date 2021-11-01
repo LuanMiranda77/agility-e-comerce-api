@@ -1,7 +1,6 @@
 package com.api.resources;
 
 import java.awt.print.Pageable;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -75,6 +74,20 @@ public class PedidoResource implements ResourceBase<Pedido, Long>{
 	public List<Pedido> findAllList() {
 		return pedidoRepository.findAll();
 	}
+	
+
+//	Listar Pedido
+	@PostMapping("/find-data")
+	public List<Pedido> findByPedidoEstatus(@RequestBody  Pedido pedido ) {
+		return pedidoService.findPedidosByEstatus(pedido.getDataDeCriacao(), pedido.getDataFechamento(), pedido.getEstatus());
+	}
+	
+	//	Listar Pedido
+	@PostMapping("/find-data-all")
+	public List<Pedido> findByPedidoData(@RequestBody  Pedido pedido ) {
+		return pedidoRepository.findByDataDeCriacaoBetween(pedido.getDataDeCriacao(), pedido.getDataFechamento());
+	}
+
 
 
 	public Page<Pedido> findAllPage(Pedido pFilter, Pageable pPage) {
@@ -85,6 +98,8 @@ public class PedidoResource implements ResourceBase<Pedido, Long>{
 	public Dashboard findDashboard(@RequestBody Pedido pedido) {
 		return dashboardService.findDesthboard(pedido.getDataDeCriacao(), pedido.getDataFechamento());
 	}
+	
+	
 
 	
 	

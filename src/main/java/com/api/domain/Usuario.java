@@ -15,6 +15,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import lombok.Data;
@@ -44,6 +45,7 @@ public class Usuario {
 	
 	private Boolean status;
 	
+	@JsonIgnore
 	@NotNull
 	@Size(min = 6)
 	private String password;
