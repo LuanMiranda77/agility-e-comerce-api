@@ -31,11 +31,11 @@ public class Pagamento implements Serializable {
 
 	private Integer numeroDeParcelas;
 	
-	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataVenciemtno;
+	private Date dataVencimento;
 	
-	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataPagamento;
 	
