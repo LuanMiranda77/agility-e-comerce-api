@@ -13,10 +13,15 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.api.domain.enuns.EstatusUsuario;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.istack.NotNull;
+
 
 import lombok.Data;
 
@@ -39,13 +44,18 @@ public class Usuario {
 	@NotNull
 	private String email;
 	
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCriacao ;
 	
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataAtualizacao;
 	
-	private Boolean status;
+	@Enumerated(EnumType.STRING)
+	private EstatusUsuario status = EstatusUsuario.ATIVO;
 	
-	@JsonIgnore
+//	@JsonIgnore
 	@NotNull
 	@Size(min = 6)
 	private String password;

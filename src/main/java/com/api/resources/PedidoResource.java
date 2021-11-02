@@ -51,7 +51,7 @@ public class PedidoResource implements ResourceBase<Pedido, Long>{
 
 //	Atualizar pedido
 	@PutMapping
-	public ResponseEntity<Pedido> update(@Valid Long pID, Pedido pEntity) {
+	public ResponseEntity<Pedido> update(@Valid Long pID, @Valid Pedido pEntity) {
 		Pedido pedidoSalvo = pedidoService.update(pEntity);
 		return ResponseEntity.ok(pedidoSalvo);
 	}

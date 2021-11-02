@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.api.domain.Categoria;
 import com.api.repository.CategoriaRepository;
-import com.api.services.exceptions.CategoriaExistException;
+import com.api.services.exceptions.ItemExistException;
 
 //@autor Jadson Feitosa #AE-39
 
@@ -37,7 +37,7 @@ public class CategoriaService {
 	
 	public void testeExistCategoria(Categoria pEntity) {
 		if(categoriaRepository.existsByNome(pEntity.getNome())) {
-			throw new CategoriaExistException();
+			throw new ItemExistException();
 		}
 	}
 	

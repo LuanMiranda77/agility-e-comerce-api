@@ -15,11 +15,14 @@ import org.springframework.context.annotation.Profile;
 
 import com.api.domain.Categoria;
 import com.api.domain.Cliente;
+import com.api.domain.Endereco;
 import com.api.domain.ImagemProduto;
 import com.api.domain.ItemPedido;
 import com.api.domain.Pagamento;
 import com.api.domain.Pedido;
 import com.api.domain.Produto;
+import com.api.domain.Roles;
+import com.api.domain.UF;
 import com.api.domain.Usuario;
 import com.api.domain.enuns.EstatusPagamento;
 import com.api.domain.enuns.EstatusPedido;
@@ -82,6 +85,17 @@ public class ConfigAmbienteDev {
 		user.setPassword("123456");
 		user.setLogin("admin");
 		user.setNome("ADMIN");
+		user.setRole(Roles.MASTER);
+//		new BCryptPasswordEncoder().encode("123456")
+		users.add(user);
+		user = userRepository.save(user);
+		
+		user = new Usuario();
+		user.setEmail("luanprof30@gmail.com");
+		user.setPassword("123456");
+		user.setLogin("tESTE");
+		user.setNome("LUAN MIRANDA");
+		user.setRole(Roles.CLIENTE);
 //		new BCryptPasswordEncoder().encode("123456")
 		users.add(user);
 		user = userRepository.save(user);
@@ -92,6 +106,19 @@ public class ConfigAmbienteDev {
 		cliente.setTipo(TipoCliente.ATACADO);
 		cliente.setEnderecos(null);
 		
+		Endereco endereco = new Endereco();
+		endereco.setCep("58500-000");
+		endereco.setLogradouro("rua da doidera");
+		endereco.setNumero("32a");
+		endereco.setCidade("São paulo");
+		endereco.setBairro("Chibate");
+		endereco.setUf(UF.PB);
+		
+		List<Endereco> enderecos = new ArrayList<Endereco>();
+		enderecos.add(endereco);
+		
+		
+		cliente.setEnderecos(enderecos);
 		
 		cliente = clienteRepository.save(cliente);
 		
