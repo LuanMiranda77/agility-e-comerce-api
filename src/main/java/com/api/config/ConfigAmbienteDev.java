@@ -81,15 +81,15 @@ public class ConfigAmbienteDev {
 		
 		Random gerador = new Random();
 		
-		user = new Usuario();
-		user.setEmail("agilityecommerce@gmail.com");
-		user.setPassword("123456");
-		user.setLogin("admin");
-		user.setNome("ADMIN");
-		user.setRole(Roles.MASTER);
+		Usuario user1 = new Usuario();
+		user1.setEmail("agilityecommerce@gmail.com");
+		user1.setPassword("123456");
+		user1.setLogin("admin");
+		user1.setNome("ADMIN");
+		user1.setRole(Roles.MASTER);
 //		new BCryptPasswordEncoder().encode("123456")
-		users.add(user);
-		user = userRepository.save(user);
+		users.add(user1);
+		user = userRepository.save(user1);
 		
 		user = new Usuario();
 		user.setEmail("luanprof30@gmail.com");

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.api.domain.Usuario;
+import com.api.domain.TO.UsuarioTO;
 import com.api.repository.UsuarioRepository;
 import com.api.services.exceptions.EmailNotExistException;
 import com.api.services.exceptions.UsuarioExistException;
@@ -32,7 +33,9 @@ public class UsuarioService {
 		}
 		
 		userSalvo = usuarioRepository.save(pEntity);
-		return userSalvo;
+		userSalvo.setPassword(null);
+		
+		return pEntity;
 		
 	}
 	

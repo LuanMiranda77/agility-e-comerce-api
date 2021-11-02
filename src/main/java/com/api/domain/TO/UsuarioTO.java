@@ -8,6 +8,8 @@ import org.springframework.beans.BeanUtils;
 import com.api.domain.Roles;
 import com.api.domain.Usuario;
 
+import lombok.Data;
+@Data
 public class UsuarioTO implements Serializable{
 	
 	/**
@@ -50,82 +52,12 @@ public class UsuarioTO implements Serializable{
 		return usuario;
 	}
 
-	public UsuarioTO converteParaTO(Usuario usuario) {
+	public static UsuarioTO converteParaTO(Usuario usuario) {
 		UsuarioTO to = new UsuarioTO();
 		BeanUtils.copyProperties(usuario, to, "password");
 		return to;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public Date getDataCriacao() {
-		return dataCriacao;
-	}
-
-	public void setDataCriacao(Date dataCriacao) {
-		this.dataCriacao = dataCriacao;
-	}
-
-	public Date getDataAtualizacao() {
-		return dataAtualizacao;
-	}
-
-	public void setDataAtualizacao(Date dataAtualizacao) {
-		this.dataAtualizacao = dataAtualizacao;
-	}
-
-	public Boolean getStatus() {
-		return status;
-	}
-
-	public void setStatus(Boolean status) {
-		this.status = status;
-	}
-
-	public Roles getRole() {
-		return role;
-	}
-
-	public void setRole(Roles role) {
-		this.role = role;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
+	
 
 }

@@ -15,7 +15,7 @@ import com.api.services.JWTLoginFilter;
 
 @Configuration
 @EnableWebSecurity
-@Profile("prod")
+@Profile("dev")
 public class SecurityConfigJWT extends WebSecurityConfigurerAdapter{
 	
 	@Override
