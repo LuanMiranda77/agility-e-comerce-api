@@ -15,9 +15,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.istack.NotNull;
 
 import lombok.Data;
 
@@ -31,9 +32,9 @@ public class Produto {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotNull
+	@NotBlank
 	private String codigoBarras;
-	@NotNull
+	@NotBlank
 	private String titulo;
 	@NotNull
 	private BigDecimal precoVarejo;
@@ -41,15 +42,15 @@ public class Produto {
 	private BigDecimal precoAtacado;
 	@NotNull
 	private Integer quantidade;
-	@NotNull
+	@NotBlank
 	private String descricao;
-	@NotNull
+	@NotBlank
 	private String peso;
-	@NotNull
+	@NotBlank
 	private String comprimento;
-	@NotNull
+	@NotBlank
 	private String altura;
-	@NotNull
+	@NotBlank
 	private String largura;
 	
 	private Integer estrelas;

@@ -41,14 +41,14 @@ public class CategoriaResource implements ResourceBase<Categoria,Long>{
 //	Salvar Categoria	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Categoria> save(@Valid Categoria pEntity, HttpServletResponse response) {
+	public ResponseEntity<Categoria> save(@Valid @RequestBody Categoria pEntity, HttpServletResponse response) {
 		Categoria categoriaSalva = categoriaService.save(pEntity);
 		return  ResponseEntity.status(HttpStatus.CREATED).body(categoriaSalva);
 	}
 	
 //	Atualizar Categoria	
 	@PutMapping("/{pID}")
-	public ResponseEntity<Categoria> update(@PathVariable Long pID, @RequestBody Categoria pEntity) {
+	public ResponseEntity<Categoria> update(@PathVariable Long pID, @Valid @RequestBody Categoria pEntity) {
 		Categoria categoriaSalva = categoriaService.update(pEntity);
 		return  ResponseEntity.ok(categoriaSalva);
 	}
@@ -62,6 +62,7 @@ public class CategoriaResource implements ResourceBase<Categoria,Long>{
 	}
 
 //	Filtro por ID
+	@GetMapping("/{pID}")
 	public ResponseEntity<Categoria> findById(@PathVariable Long pID) {
 		return ResponseEntity.ok(categoriaRepository.findById(pID).get());
 	}

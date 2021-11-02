@@ -1,7 +1,6 @@
 package com.api.domain;
 
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -15,10 +14,12 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.api.domain.enuns.EstatusUsuario;
+import com.api.domain.enuns.Roles;
 import com.api.utils.UtilsHorasData;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -34,13 +35,13 @@ public class Usuario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotNull
+	@NotBlank
 	private String nome;
 
-	@NotNull
+	@NotBlank
 	private String login;
 	
-	@NotNull
+	@NotBlank
 	@Email
 	private String email;
 	
@@ -52,11 +53,12 @@ public class Usuario {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataAtualizacao = new Date();
 	
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	private EstatusUsuario status = EstatusUsuario.ATIVO;
 	
 //	@JsonIgnore
-	@NotNull
+	@NotBlank
 	@Size(min = 6)
 	private String password;
 	

@@ -13,9 +13,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.api.domain.enuns.TipoCliente;
-import com.sun.istack.NotNull;
 
 import lombok.Data;
 
@@ -33,7 +35,8 @@ public class Cliente {
 	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
 	
-	@NotNull
+	@NotBlank
+	@Size(min=11)
 	private String cpfCnpj;
 	
 	@NotNull

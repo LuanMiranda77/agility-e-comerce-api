@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.api.domain.enuns.EstatusPagamento;
 import com.api.domain.enuns.TipoPagamento;
@@ -39,8 +41,10 @@ public class Pagamento implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataPagamento;
 	
+	@NotNull
 	private TipoPagamento tipo;
 	
+	@NotNull
 	private EstatusPagamento estatus;
 	
 	
