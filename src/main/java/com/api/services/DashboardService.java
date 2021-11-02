@@ -365,10 +365,10 @@ public class DashboardService {
 		CriteriaQuery<Clientes> query = builder.createQuery(Clientes.class);
 		Root<Pedido> root = query.from(Pedido.class);
 
-		query.multiselect(root.get("cliente").get("ususario").get("nome"),builder.sum(root.<BigDecimal>get("valorTotal")));
+		query.multiselect(root.get("cliente").get("usuario").get("nome"), builder.sum(root.<BigDecimal>get("valorTotal")));
 		query.where(builder.between(root.get("dataFechamento"), dataInicio, dataFinal),
 				builder.and(builder.equal(root.get("estatus"), estatusPedido)));
-		query.groupBy(root.get("cliente").get("ususario").get("nome"));
+		query.groupBy(root.get("cliente").get("usuario").get("nome"));
 		query.orderBy(builder.desc(builder.sum(root.<BigDecimal>get("valorTotal"))));
 
 		clientes = manager.createQuery(query).setMaxResults(10).getResultList();

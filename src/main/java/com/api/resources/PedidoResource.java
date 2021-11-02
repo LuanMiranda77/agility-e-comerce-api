@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.domain.Pedido;
+import com.api.domain.TO.DashboardTO;
 import com.api.repository.PedidoRepository;
 import com.api.services.DashboardService;
 import com.api.services.PedidoService;
@@ -97,8 +98,8 @@ public class PedidoResource implements ResourceBase<Pedido, Long>{
 	}
 	
 	@PostMapping("/dashboard")
-	public Dashboard findDashboard(@RequestBody Pedido pedido) {
-		return dashboardService.findDesthboard(pedido.getDataDeCriacao(), pedido.getDataFechamento());
+	public Dashboard findDashboard(@RequestBody DashboardTO dashboard) {
+		return dashboardService.findDesthboard(dashboard.getDataDeCriacao(), dashboard.getDataFechamento());
 	}
 	
 	
