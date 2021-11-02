@@ -5,8 +5,8 @@ import java.util.Date;
 
 import org.springframework.beans.BeanUtils;
 
-import com.api.domain.Roles;
 import com.api.domain.Usuario;
+import com.api.domain.enuns.Roles;
 
 import lombok.Data;
 @Data

@@ -43,8 +43,7 @@ public class UsuarioService {
 		Usuario usuarioSalvo = usuarioRepository.findById(pEntity.getId()).get();
 		
 		BeanUtils.copyProperties(pEntity, usuarioSalvo,"id");
-		usuarioRepository.save(usuarioSalvo);
-		usuarioSalvo.setId(pEntity.getId());
+		usuarioSalvo = save(usuarioSalvo);
 		
 		return usuarioSalvo;
 	}

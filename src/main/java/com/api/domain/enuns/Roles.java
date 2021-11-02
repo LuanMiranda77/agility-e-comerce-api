@@ -1,4 +1,4 @@
-package com.api.domain;
+package com.api.domain.enuns;
 
 //@autor Jadson Feitosa #AE-42
 

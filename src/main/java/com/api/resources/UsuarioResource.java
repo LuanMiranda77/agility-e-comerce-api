@@ -82,8 +82,8 @@ public class UsuarioResource implements ResourceBase<Usuario, Long> {
 	
 	
 //	Atualizar Usuario
-	@PutMapping
-	public ResponseEntity<Usuario> update(@Valid Long pID, @RequestBody Usuario pEntity) {
+	@PutMapping("/{pID}")
+	public ResponseEntity<Usuario> update(@PathVariable Long pID, @Valid @RequestBody Usuario pEntity) {
 		Usuario usuarioSalvo = usuarioService.update(pEntity);
 		return ResponseEntity.ok(usuarioSalvo);
 	}

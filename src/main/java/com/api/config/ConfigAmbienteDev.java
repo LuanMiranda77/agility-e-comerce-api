@@ -22,13 +22,13 @@ import com.api.domain.ItemPedido;
 import com.api.domain.Pagamento;
 import com.api.domain.Pedido;
 import com.api.domain.Produto;
-import com.api.domain.Roles;
-import com.api.domain.UF;
 import com.api.domain.Usuario;
 import com.api.domain.enuns.EstatusPagamento;
 import com.api.domain.enuns.EstatusPedido;
+import com.api.domain.enuns.Roles;
 import com.api.domain.enuns.TipoCliente;
 import com.api.domain.enuns.TipoPagamento;
+import com.api.domain.enuns.UF;
 import com.api.repository.CategoriaRepository;
 import com.api.repository.ClienteRepository;
 import com.api.repository.ImagemProdutoRepository;
@@ -103,7 +103,7 @@ public class ConfigAmbienteDev {
 		
 		Cliente cliente = new Cliente();
 		cliente.setUsuario(user);
-		cliente.setCpfCnpj("101010");
+		cliente.setCpfCnpj("12345678910");
 		cliente.setTipo(TipoCliente.ATACADO);
 		cliente.setEnderecos(null);
 		

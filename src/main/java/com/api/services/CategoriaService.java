@@ -41,8 +41,4 @@ public class CategoriaService {
 		}
 	}
 	
-	public void isAtive(Categoria pEntity) {
-		update(pEntity);
-	}
-	
 }
