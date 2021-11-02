@@ -10,13 +10,17 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.istack.NotNull;
+import com.api.domain.enuns.EstatusUsuario;
+import com.api.utils.UtilsHorasData;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
@@ -37,15 +41,21 @@ public class Usuario {
 	private String login;
 	
 	@NotNull
+	@Email
 	private String email;
 	
-	private Date dataCriacao ;
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataCriacao = new Date();
 	
-	private Date dataAtualizacao;
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataAtualizacao = new Date();
 	
-	private Boolean status;
+	@Enumerated(EnumType.STRING)
+	private EstatusUsuario status = EstatusUsuario.ATIVO;
 	
-	@JsonIgnore
+//	@JsonIgnore
 	@NotNull
 	@Size(min = 6)
 	private String password;
@@ -56,12 +66,12 @@ public class Usuario {
 
 	@PrePersist
 	public void dataInicial() {
-		this.dataCriacao = new Timestamp(System.currentTimeMillis());
+		this.dataCriacao = UtilsHorasData.subtrair(this.dataCriacao, 3);
 	}
 	
 	@PreUpdate
 	public void dataAtualizacao() {
-		this.dataAtualizacao = new Timestamp(System.currentTimeMillis());
+		this.dataAtualizacao = UtilsHorasData.subtrair(this.dataCriacao, 3);
 	}
 	
 	

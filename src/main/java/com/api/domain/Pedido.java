@@ -23,6 +23,8 @@ import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import javax.validation.constraints.NotNull;
+
 import com.api.domain.enuns.EstatusPedido;
 import com.api.utils.UtilsHorasData;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -50,18 +52,22 @@ public class Pedido implements Serializable {
 	private Date dataFechamento;
 	
 	
+	@NotNull
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "pedido_id")
 	private Pagamento pagamento;
 	
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name="cliente_id")
 	private Cliente cliente;
 	
-	@OneToOne
-	@JoinColumn(name = "endereco_id")
+	@NotNull
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "ped_id")
 	private EnderecoDeEntrega enderecoDeEntrega;
 	
+	@NotNull
 	@JsonIgnore
 	@OneToMany(mappedBy = "produto")
 	private List<ItemPedido> produtos = new ArrayList<ItemPedido>();

@@ -76,6 +76,15 @@ public class GeralExceptionHandler extends ResponseEntityExceptionHandler {
 	
 	
 //	exception para erros de chaves estrageiras
+	@ExceptionHandler(IllegalArgumentException.class)
+	public ResponseEntity<Object> DataIntegrityViolationException(IllegalArgumentException ex, WebRequest request) {
+		String mensagemUsuario = messageSource.getMessage("recurso.erro", null, LocaleContextHolder.getLocale());
+		String mensagemDesenvolvedor = ExceptionUtils.getRootCauseMessage(ex);
+		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+		return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+	}
+	
+//	exception para erros de chaves estrageiras
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	public ResponseEntity<Object> DataIntegrityViolationException(DataIntegrityViolationException ex, WebRequest request) {
 		String mensagemUsuario = messageSource.getMessage("recurso.operacao-nao-permitida", null, LocaleContextHolder.getLocale());
