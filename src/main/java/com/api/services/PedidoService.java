@@ -11,10 +11,14 @@ import org.springframework.stereotype.Service;
 
 import com.api.domain.ItemPedido;
 import com.api.domain.Pedido;
+import com.api.domain.enuns.EstatusPagamento;
 import com.api.domain.enuns.EstatusPedido;
 import com.api.repository.ItemPedidoRepository;
 import com.api.repository.PedidoRepository;
+import com.api.services.exceptions.PagamentoNaoAprovadoException;
 import com.api.services.filter.PedidoQueryImpl;
+
+import net.bytebuddy.implementation.bytecode.Throw;
 
 //@autor Jadson Feitosa #AE-36
 
@@ -32,7 +36,7 @@ public class PedidoService {
 	
 	public Pedido save(Pedido pEntity) {
 		List<ItemPedido>itemPedidos = pEntity.getProdutos();
-		
+
 		Pedido pedidoSalvo = pedidoRepository.save(pEntity);
 		
 		
@@ -45,13 +49,25 @@ public class PedidoService {
 	}
 	
 	public Pedido update(Pedido pEntity) {
-		Pedido pedidoSalvo = pedidoRepository.findById(pEntity.getId()).get();
+		Pedido pedidoSalvo = null;
 		
-		BeanUtils.copyProperties(pEntity, pedidoSalvo, "id");
-		pedidoRepository.save(pedidoSalvo);
-		pedidoSalvo.setId(pEntity.getId());
+		if(pEntity.getEstatus().equals(EstatusPedido.FINALIZADO)) {
+			if(pEntity.getPagamento().getEstatus().equals(EstatusPagamento.APROVADO)) {
+				pedidoSalvo = pedidoRepository.findById(pEntity.getId()).get();
+				BeanUtils.copyProperties(pEntity, pedidoSalvo, "id");
+				pedidoRepository.save(pedidoSalvo);
+			}
+			else {
+				throw new PagamentoNaoAprovadoException();
+			}
+		}else {
+			
+			pedidoSalvo = pedidoRepository.findById(pEntity.getId()).get();
+			BeanUtils.copyProperties(pEntity, pedidoSalvo, "id");
+			pedidoRepository.save(pedidoSalvo);
+			pedidoSalvo.setId(pEntity.getId());
+		}
 		return pedidoSalvo;
-		
 	}
 	
 	public void isAtive(Pedido pEntity) {

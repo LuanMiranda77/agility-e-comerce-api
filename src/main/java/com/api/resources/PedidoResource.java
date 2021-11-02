@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -64,7 +65,8 @@ public class PedidoResource implements ResourceBase<Pedido, Long>{
 	}
 
 //	Filtro por ID
-	public ResponseEntity<Pedido> findById(Long pID) {
+	@GetMapping("/{pID}")
+	public ResponseEntity<Pedido> findById(@PathVariable Long pID) {
 		return  ResponseEntity.ok(pedidoRepository.findById(pID).get());
 	}
 
@@ -99,8 +101,6 @@ public class PedidoResource implements ResourceBase<Pedido, Long>{
 		return dashboardService.findDesthboard(pedido.getDataDeCriacao(), pedido.getDataFechamento());
 	}
 	
-	
-
 	
 	
 	

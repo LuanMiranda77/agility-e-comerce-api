@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Profile;
 import com.api.domain.Categoria;
 import com.api.domain.Cliente;
 import com.api.domain.Endereco;
+import com.api.domain.EnderecoDeEntrega;
 import com.api.domain.ImagemProduto;
 import com.api.domain.ItemPedido;
 import com.api.domain.Pagamento;
@@ -106,6 +107,8 @@ public class ConfigAmbienteDev {
 		cliente.setTipo(TipoCliente.ATACADO);
 		cliente.setEnderecos(null);
 		
+		
+
 		Endereco endereco = new Endereco();
 		endereco.setCep("58500-000");
 		endereco.setLogradouro("rua da doidera");
@@ -165,9 +168,18 @@ public class ConfigAmbienteDev {
 		        pagamento.setDataVencimento(date);
 				
 			}
+			
+			EnderecoDeEntrega enderecoDeEntrega = new EnderecoDeEntrega();
+			enderecoDeEntrega.setCep("58500-000");
+			enderecoDeEntrega.setLogradouro("rua da doidera");
+			enderecoDeEntrega.setNumero("32a");
+			enderecoDeEntrega.setCidade("São paulo");
+			enderecoDeEntrega.setBairro("Chibate");
+			enderecoDeEntrega.setUf(UF.PB);
 		
 			pedido = new Pedido();
 			pedido.setCliente(cliente);
+			pedido.setEnderecoDeEntrega(enderecoDeEntrega);
 			pedido.setDataFechamento(date);
 			
 			if(i%2 == 0) {
