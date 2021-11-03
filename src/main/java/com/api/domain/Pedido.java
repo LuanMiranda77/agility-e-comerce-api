@@ -54,7 +54,7 @@ public class Pedido implements Serializable {
 	
 	@NotNull
 	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name = "pedido_id")
+	@JoinColumn(name = "pagamento_id")
 	private Pagamento pagamento;
 	
 	@NotNull
@@ -64,7 +64,7 @@ public class Pedido implements Serializable {
 	
 	@NotNull
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "ped_id")
+	@JoinColumn(name = "endereco_id")
 	private EnderecoDeEntrega enderecoDeEntrega;
 	
 	@NotNull
