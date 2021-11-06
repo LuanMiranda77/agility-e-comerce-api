@@ -33,4 +33,9 @@ public class PagamentoService {
 		update(pEntity);
 	}
 
+	public Pagamento findById(long id) {
+		
+		return pagamentoRepository.getById(id);
+	}
+
 }

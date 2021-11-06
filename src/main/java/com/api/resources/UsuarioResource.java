@@ -98,7 +98,7 @@ public class UsuarioResource implements ResourceBase<Usuario, Long> {
 //	Filtro por ID
 	@GetMapping("/{pID}")
 	public ResponseEntity<Usuario> findById(@PathVariable Long pID) {
-		Usuario usuarioSalvo = usuarioRepository.findById(pID).get();
+		Usuario usuarioSalvo = usuarioService.findById(pID);
 		usuarioSalvo.setPassword(null);
 		return ResponseEntity.ok(usuarioSalvo);
 	}

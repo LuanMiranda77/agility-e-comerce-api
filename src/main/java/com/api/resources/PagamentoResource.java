@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,8 +58,9 @@ public class PagamentoResource implements ResourceBase<Pagamento, Long>{
 	}
 	
 //	Filtro por ID
-	public ResponseEntity<Pagamento> findById(Long pID) {
-		return ResponseEntity.ok(pagamentoRepository.findById(pID).get());
+	@GetMapping("/{pID}")
+	public ResponseEntity<Pagamento> findById(@PathVariable Long pID) {
+		return ResponseEntity.ok(pagamentoService.findById(pID));
 	}
 	
 //	Listar Pagamentos

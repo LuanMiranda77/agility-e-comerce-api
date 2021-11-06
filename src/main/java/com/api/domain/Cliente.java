@@ -19,12 +19,14 @@ import javax.validation.constraints.Size;
 
 import com.api.domain.enuns.TipoCliente;
 
+import lombok.Builder;
 import lombok.Data;
 
 //@autor Jadson Feitosa #40
 
 @Entity
 @Data
+//@Builder
 public class Cliente {
 
 	@Id

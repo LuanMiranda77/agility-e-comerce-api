@@ -40,7 +40,7 @@ import com.api.services.PedidoService;
 import com.api.utils.UtilsHorasData;
 
 @Configuration
-@Profile("dev")
+@Profile("prod")
 public class ConfigAmbienteDev {
 	
 	@Transient

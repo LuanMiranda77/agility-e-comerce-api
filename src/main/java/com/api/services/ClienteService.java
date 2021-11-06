@@ -31,6 +31,10 @@ public class ClienteService {
 		
 	}
 	
+	public Cliente findById(Long id) {
+		return clienteRepository.findById(id).get();
+	}
+	
 	public void isAtive(Cliente pEntity) {
 		update(pEntity);
 	}
