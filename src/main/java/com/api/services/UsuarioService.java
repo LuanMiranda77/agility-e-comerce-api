@@ -6,11 +6,14 @@ import javax.mail.MessagingException;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.api.domain.Usuario;
 import com.api.domain.TO.UsuarioTO;
 import com.api.repository.UsuarioRepository;
+import com.api.resources.exception.LoginException;
 import com.api.services.exceptions.EmailNotExistException;
 import com.api.services.exceptions.UsuarioExistException;
 
@@ -79,6 +82,27 @@ public class UsuarioService {
 			throw new  EmailNotExistException();
 		}
 		
+	}
+
+	public Usuario findById(long Id) {
+		return usuarioRepository.findById(Id).get();
+	}	
+	
+	public Usuario login(Usuario pEntity) {
+		Usuario userSalvo = usuarioRepository.findByEmail(pEntity.getEmail());
+		
+		if(userSalvo != null) {
+			if(userSalvo.getEmail().equals(pEntity.getEmail()) 
+					&& userSalvo.getPassword().equals(pEntity.getPassword())) {
+				
+				return userSalvo;
+				
+			}else {
+				throw new LoginException();
+			}
+		}else {
+			throw new LoginException();
+		}
 	}
 
 }

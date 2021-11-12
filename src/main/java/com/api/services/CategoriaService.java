@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.api.domain.Categoria;
 import com.api.repository.CategoriaRepository;
 import com.api.services.exceptions.ItemExistException;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
 //@autor Jadson Feitosa #AE-39
 
@@ -39,6 +40,11 @@ public class CategoriaService {
 		if(categoriaRepository.existsByNome(pEntity.getNome())) {
 			throw new ItemExistException();
 		}
+	}
+
+	public Categoria findById(long Id) {
+		// TODO Auto-generated method stub
+		return categoriaRepository.findById(Id).get();
 	}
 	
 }

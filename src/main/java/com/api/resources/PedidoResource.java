@@ -68,7 +68,7 @@ public class PedidoResource implements ResourceBase<Pedido, Long>{
 //	Filtro por ID
 	@GetMapping("/{pID}")
 	public ResponseEntity<Pedido> findById(@PathVariable Long pID) {
-		return  ResponseEntity.ok(pedidoRepository.findById(pID).get());
+		return  ResponseEntity.ok(pedidoService.findById(pID));
 	}
 
 

@@ -55,3 +55,4 @@ hs_err_pid*
 /target/classes/com/api/repository/PedidoRepository.class
 /target/classes/com/api/resources/PedidoResource.class
 /target/classes/com/api/services/PedidoService.class
+/target/classes/com/api/services/CategoriaService.class

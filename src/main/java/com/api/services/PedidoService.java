@@ -77,5 +77,9 @@ public class PedidoService {
 	public  List<Pedido> findPedidosByEstatus(Date dtIni, Date dtFin, EstatusPedido estatusPedido){
 		return pedidoQueryImpl.findPedidosByEstatus(dtIni, dtFin, estatusPedido);
 	}
+
+	public Pedido findById(long Id) {
+		return pedidoRepository.findById(Id).get();
+	}
 		
 }

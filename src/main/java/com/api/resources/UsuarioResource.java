@@ -40,20 +40,10 @@ public class UsuarioResource implements ResourceBase<Usuario, Long> {
 	
 	@PostMapping("/login")
 	public ResponseEntity<Usuario> login(@RequestBody Usuario pEntity, HttpServletResponse response){
-		Usuario userSalvo = usuarioRepository.findByEmail(pEntity.getEmail());
+		Usuario usuarioSalvo = usuarioService.login(pEntity);
 		
-		if(userSalvo != null) {
-			if(userSalvo.getEmail().equals(pEntity.getEmail()) 
-					&& userSalvo.getPassword().equals(pEntity.getPassword())) {
+		return usuarioSalvo != null ? ResponseEntity.status(HttpStatus.ACCEPTED).body(usuarioSalvo) : ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 				
-				return ResponseEntity.status(HttpStatus.ACCEPTED).body(userSalvo);
-				
-			}else {
-				throw new LoginException();
-			}
-		}else {
-			throw new LoginException();
-		}
 	}
 	
 	
