@@ -19,6 +19,7 @@ import com.api.domain.Endereco;
 import com.api.domain.EnderecoDeEntrega;
 import com.api.domain.ImagemProduto;
 import com.api.domain.ItemPedido;
+import com.api.domain.MercadoLivre;
 import com.api.domain.Pagamento;
 import com.api.domain.Pedido;
 import com.api.domain.Produto;
@@ -36,6 +37,7 @@ import com.api.repository.PagamentoRepository;
 import com.api.repository.PedidoRepository;
 import com.api.repository.ProdutoRepository;
 import com.api.repository.UsuarioRepository;
+import com.api.services.MercadoLivreService;
 import com.api.services.PedidoService;
 import com.api.utils.UtilsHorasData;
 
@@ -62,6 +64,9 @@ public class ConfigAmbienteDev {
 	ClienteRepository clienteRepository;
 	@Autowired
 	PedidoService pedidoService;
+	
+	@Autowired
+	MercadoLivreService mercadoLivreService;
 	
 	
 	@Bean
@@ -124,6 +129,9 @@ public class ConfigAmbienteDev {
 		cliente.setEnderecos(enderecos);
 		
 		cliente = clienteRepository.save(cliente);
+		
+		MercadoLivre mercadoLivre = new MercadoLivre(null, "2128718904902939", "V7OLfmpG4XUzYnLhYmDYnK4MO6DvNqdm", null, null, null, null, null, null); 
+		mercadoLivreService.save(mercadoLivre);
 		
 		for(int i=0;i<quantDeLoop;i++ ) {
 			categoria = new Categoria(i+1l,"categoria-test"+i);
