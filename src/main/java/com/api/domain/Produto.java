@@ -54,6 +54,8 @@ public class Produto {
 	private String largura;
 	
 	private Integer estrelas;
+	
+	private String idML;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="produto_id")
