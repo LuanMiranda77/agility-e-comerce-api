@@ -130,7 +130,7 @@ public class ConfigAmbienteDev {
 		
 		cliente = clienteRepository.save(cliente);
 		
-		MercadoLivre mercadoLivre = new MercadoLivre(null, "2128718904902939", "V7OLfmpG4XUzYnLhYmDYnK4MO6DvNqdm", null, null, null, null, null, null); 
+		MercadoLivre mercadoLivre = new MercadoLivre(null, "2128718904902939", "V7OLfmpG4XUzYnLhYmDYnK4MO6DvNqdm", "Bearer APP_USR-2128718904902939-111423-265756d7711032141c81cde7e554c4ca-669091157", null, null, null, null, null); 
 		mercadoLivreService.save(mercadoLivre);
 		
 		for(int i=0;i<quantDeLoop;i++ ) {
