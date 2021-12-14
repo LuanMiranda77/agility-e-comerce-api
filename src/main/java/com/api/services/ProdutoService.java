@@ -1,21 +1,16 @@
 package com.api.services;
 
-import java.io.ByteArrayInputStream;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import javax.imageio.ImageIO;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.converter.BufferedImageHttpMessageConverter;
 import org.springframework.stereotype.Service;
-
 import com.api.domain.ImagemProduto;
 import com.api.domain.Produto;
 import com.api.repository.ImagemProdutoRepository;
 import com.api.repository.ProdutoRepository;
 import com.api.services.exceptions.ItemExistException;
+import com.api.services.filter.ProdutoQueryImpl;
 
 // @autor Jadson Feitosa #29
 
@@ -27,6 +22,9 @@ public class ProdutoService {
 	
 	@Autowired
 	private ImagemProdutoRepository imagemProdutoRepository;
+	
+	@Autowired
+	private ProdutoQueryImpl produtoQueryImpl;
 
 	public Produto save(Produto pEntity){
 		if(produtoRepository.existsByCodigoBarras(pEntity.getCodigoBarras())) {
@@ -58,6 +56,10 @@ public class ProdutoService {
 	public void deleteAll(List<Produto> pList) {
 		produtoRepository.deleteAll(pList);
 		
+	}
+	
+	public List<Produto> findFilterProdutos(String tipoFilter, String dados){
+		return produtoQueryImpl.findFilterProduto(tipoFilter, dados);
 	}
 	
 		

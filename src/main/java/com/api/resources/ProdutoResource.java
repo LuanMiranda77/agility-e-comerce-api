@@ -88,6 +88,11 @@ public class ProdutoResource implements ResourceBase<Produto, Long>{
 		produtoRepository.deleteAll(pList);
 	}
 	
+	@GetMapping("/filter/{tipoFilter}&{dados}")
+	public List<Produto> findFilterProdutos(@PathVariable String tipoFilter, @PathVariable String dados){
+		return produtoService.findFilterProdutos(tipoFilter, dados);
+	}
+	
 	public Page<Produto> findAllPage(Produto pFilter, Pageable pPage) {
 		return null;
 	}
