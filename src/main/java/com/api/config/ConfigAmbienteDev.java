@@ -80,6 +80,7 @@ public class ConfigAmbienteDev {
 		
 // 		setando dados dos usuarios		
 		Usuario user;
+		Usuario userTesteEmail;
 		Categoria categoria;
 		Produto produto;
 		Pedido pedido = null;
@@ -97,14 +98,24 @@ public class ConfigAmbienteDev {
 		user = userRepository.save(user1);
 		
 		user = new Usuario();
-		user.setEmail("luanprof30@gmail.com");
+		user.setEmail("jadson.feitosa.silva@gmail.com");
 		user.setPassword("123456");
-		user.setLogin("tESTE");
-		user.setNome("LUAN MIRANDA");
-		user.setRole(Roles.CLIENTE);
+		user.setLogin("jadson");
+		user.setNome("Jadson Feitosa");
+		user.setRole(Roles.ADMIN);
 //		new BCryptPasswordEncoder().encode("123456")
 		users.add(user);
 		user = userRepository.save(user);
+	
+		userTesteEmail = new Usuario();
+		userTesteEmail.setEmail("luanprof30@gmail.com");
+		userTesteEmail.setPassword("123456");
+		userTesteEmail.setLogin("tESTE");
+		userTesteEmail.setNome("LUAN MIRANDA");
+		userTesteEmail.setRole(Roles.CLIENTE);
+//		new BCryptPasswordEncoder().encode("123456")
+		users.add(userTesteEmail);
+		user = userRepository.save(userTesteEmail);
 		
 		Cliente cliente = new Cliente();
 		cliente.setUsuario(user);
@@ -129,12 +140,16 @@ public class ConfigAmbienteDev {
 		cliente.setEnderecos(enderecos);
 		
 		cliente = clienteRepository.save(cliente);
+
 		
 		MercadoLivre mercadoLivre = new MercadoLivre(null, "2128718904902939", "V7OLfmpG4XUzYnLhYmDYnK4MO6DvNqdm", "Bearer APP_USR-2128718904902939-111423-265756d7711032141c81cde7e554c4ca-669091157", null, null, null, null, null); 
 		mercadoLivreService.save(mercadoLivre);
 		
 		for(int i=0;i<quantDeLoop;i++ ) {
 			categoria = new Categoria(i+1l,"categoria-test"+i);
+
+			
+			
 			categorias.add(categoria);
 
 			BigDecimal b = new BigDecimal(1.8);
@@ -155,7 +170,11 @@ public class ConfigAmbienteDev {
 			produto.getImagens().add(new ImagemProduto(null,"https://d3ugyf2ht6aenh.cloudfront.net/stores/386/761/products/dsc08819-edit-gold11-07a7861b1e1cf702ec16186076742287-480-0.jpg", "1fdfd51fdf","nome"+i+1, 55d));
 			produto.getImagens().add(new ImagemProduto(null,"https://m.media-amazon.com/images/I/61QHCYJIDsL._AC_SX522_.jpg", "1fdfd51fdf","nome"+i+1, 55d));
 			produto.getImagens().add(new ImagemProduto(null,"https://images-soubarato.b2w.io/produtos/3029006799/imagens/2020-moda-masculina-minimalista-ultra-fino-relogios-simples-aco-homens-de-negocios-inoxidavel-mesh-belt-relogio-de-quartzo-relogio-masculino/3029006799_1_large.jpg", "1fdfd51fdf","nome"+i+1, 55d));
-			produto.getCategorias().add(categoria);
+			
+			if(i != 0 ) {
+				produto.getCategorias().add(categoria);
+			}
+			
 			produtos.add(produto);
 			produto.setId(i+1l);
 
