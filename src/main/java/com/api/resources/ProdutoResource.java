@@ -74,10 +74,23 @@ public class ProdutoResource implements ResourceBase<Produto, Long>{
 		return ResponseEntity.ok(produtoRepository.findById(pID).get());
 	}
 	
+//	Filtro por ID
+	@GetMapping("/busca/{ptitulo}")
+	public ResponseEntity<List<Produto>> findByTitulo(@PathVariable String ptitulo) {
+		List<Produto> lista = produtoRepository.findProdutoByTituloContains(ptitulo);
+		
+		return ResponseEntity.ok(lista);
+	}
+	
 	@PostMapping("/deleteall")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteAll( @RequestBody List<Produto> pList) {
 		produtoRepository.deleteAll(pList);
+	}
+	
+	@GetMapping("/filter/{tipoFilter}&{dados}")
+	public List<Produto> findFilterProdutos(@PathVariable String tipoFilter, @PathVariable String dados){
+		return produtoService.findFilterProdutos(tipoFilter, dados);
 	}
 	
 	public Page<Produto> findAllPage(Produto pFilter, Pageable pPage) {

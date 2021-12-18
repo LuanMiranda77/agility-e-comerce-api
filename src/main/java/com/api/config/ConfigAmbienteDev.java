@@ -157,7 +157,7 @@ public class ConfigAmbienteDev {
 			produto.setCodigoBarras("154587878"+i+1);
 			produto.setTitulo("item-"+i+1);
 			produto.setPrecoAtacado(b);
-			produto.setPrecoVarejo(b);
+			produto.setPrecoVarejo(b.multiply(new BigDecimal(2)));
 			produto.setQuantidade(i);
 			produto.setPeso("1");
 			produto.setComprimento("20");
