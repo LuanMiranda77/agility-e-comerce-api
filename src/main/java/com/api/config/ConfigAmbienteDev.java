@@ -26,7 +26,9 @@ import com.api.domain.Produto;
 import com.api.domain.Usuario;
 import com.api.domain.enuns.EstatusPagamento;
 import com.api.domain.enuns.EstatusPedido;
+import com.api.domain.enuns.EstatusUsuario;
 import com.api.domain.enuns.Roles;
+import com.api.domain.enuns.Sexo;
 import com.api.domain.enuns.TipoCliente;
 import com.api.domain.enuns.TipoPagamento;
 import com.api.domain.enuns.UF;
@@ -92,6 +94,7 @@ public class ConfigAmbienteDev {
 		user1.setLogin("admin");
 		user1.setNome("ADMIN");
 		user1.setRole(Roles.MASTER);
+		user1.setStatus(EstatusUsuario.ATIVO);
 //		new BCryptPasswordEncoder().encode("123456")
 		users.add(user1);
 		user = userRepository.save(user1);
@@ -103,6 +106,7 @@ public class ConfigAmbienteDev {
 		user.setNome("LUAN MIRANDA");
 		user.setRole(Roles.CLIENTE);
 //		new BCryptPasswordEncoder().encode("123456")
+		user.setStatus(EstatusUsuario.ATIVO);
 		users.add(user);
 		user = userRepository.save(user);
 		
@@ -111,6 +115,7 @@ public class ConfigAmbienteDev {
 		cliente.setCpfCnpj("12345678910");
 		cliente.setTipo(TipoCliente.ATACADO);
 		cliente.setEnderecos(null);
+		cliente.setSexo(Sexo.M);
 		
 		
 

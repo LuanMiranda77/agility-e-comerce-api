@@ -70,7 +70,7 @@ public class ClienteResource implements ResourceBase<Cliente, Long>{
 //	Filtro por ID
 	@GetMapping("/{pID}")
 	public ResponseEntity<Cliente> findById(@PathVariable Long pID) {
-		Cliente clienteSalvo = clienteRepository.findById(pID).get();
+		Cliente clienteSalvo = clienteService.getByUser(pID);
 		clienteSalvo.getUsuario().setPassword(null);
 		return ResponseEntity.ok(clienteSalvo);
 	}

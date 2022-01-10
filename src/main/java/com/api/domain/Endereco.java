@@ -38,4 +38,6 @@ public class Endereco  {
 	@Enumerated(EnumType.STRING)
 	private UF uf;
 	
+	private String padrao;
+	
 }

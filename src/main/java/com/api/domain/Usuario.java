@@ -22,6 +22,7 @@ import com.api.domain.enuns.EstatusUsuario;
 import com.api.domain.enuns.Roles;
 import com.api.utils.UtilsHorasData;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
 
@@ -29,6 +30,7 @@ import lombok.Data;
 
 @Entity
 @Data
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Usuario {
 	
 	@Id
@@ -38,7 +40,7 @@ public class Usuario {
 	@NotBlank
 	private String nome;
 
-	@NotBlank
+	
 	private String login;
 	
 	@NotBlank
@@ -55,7 +57,7 @@ public class Usuario {
 	
 	@NotNull
 	@Enumerated(EnumType.STRING)
-	private EstatusUsuario status = EstatusUsuario.ATIVO;
+	private EstatusUsuario status;
 	
 //	@JsonIgnore
 	@NotBlank
@@ -68,12 +70,12 @@ public class Usuario {
 
 	@PrePersist
 	public void dataInicial() {
-		this.dataCriacao = UtilsHorasData.subtrair(this.dataCriacao, 3);
+		this.dataCriacao = UtilsHorasData.subtrair(new Date(), 3);
 	}
 	
 	@PreUpdate
 	public void dataAtualizacao() {
-		this.dataAtualizacao = UtilsHorasData.subtrair(this.dataCriacao, 3);
+		this.dataAtualizacao = UtilsHorasData.subtrair(new Date(), 3);
 	}
 	
 	

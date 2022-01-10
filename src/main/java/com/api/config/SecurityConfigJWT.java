@@ -20,17 +20,20 @@ public class SecurityConfigJWT extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
-		httpSecurity.csrf().disable().authorizeRequests()
-			.antMatchers("/home").permitAll()
+		httpSecurity.authorizeRequests()
+			.antMatchers(HttpMethod.GET,"api/home").permitAll()
+			.antMatchers(HttpMethod.POST,"api/cliente").permitAll()
 			.antMatchers(HttpMethod.POST, "/tokken").permitAll()
 			.anyRequest().authenticated()
-			.and()
-			.cors()
-			.and()
+			.and().cors()
+			.and().csrf().disable()
 			
 			// filtra requisições de login
 			.addFilterBefore(new JWTLoginFilter("/tokken", authenticationManager()),
 	                UsernamePasswordAuthenticationFilter.class)
+			// filtra requisições de login
+			.addFilterBefore(new JWTLoginFilter("api/cliente", authenticationManager()),
+				                UsernamePasswordAuthenticationFilter.class)
 			
 			// filtra outras requisições para verificar a presença do JWT no header
 			.addFilterBefore(new JWTAuthenticationFilter(),

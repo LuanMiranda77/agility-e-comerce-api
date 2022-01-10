@@ -1,6 +1,7 @@
 package com.api.domain;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,11 +14,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.api.domain.enuns.Sexo;
 import com.api.domain.enuns.TipoCliente;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
 
@@ -50,5 +57,13 @@ public class Cliente {
 	private String telefone;
 	
 	private String celular;
+	
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	private Sexo sexo;
+	
+	@JsonFormat(pattern="yyyy-MM-dd")
+	@Temporal(TemporalType.DATE)
+	private Date dataNascimento;
 
 }

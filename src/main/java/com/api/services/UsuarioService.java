@@ -80,5 +80,9 @@ public class UsuarioService {
 		}
 		
 	}
+	
+	public Usuario findById(Long id) {
+		return usuarioRepository.getById(id);
+	}
 
 }
