@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import com.api.domain.enuns.UF;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
 
@@ -15,7 +16,8 @@ import lombok.Data;
 
 @Entity
 @Data
-public class EnderecoDeEntrega  {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class EnderecoEntrega  {
 	
 	//@autor Jadson Feitosa #43
 	

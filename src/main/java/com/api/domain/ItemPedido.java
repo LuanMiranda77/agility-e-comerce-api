@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
@@ -22,6 +23,7 @@ import lombok.Data;
 
 @Entity
 @Data
+
 public class ItemPedido implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -29,10 +31,11 @@ public class ItemPedido implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="pedido_id")
 	private Pedido pedido;
-
+	
 	@ManyToOne
 	@JoinColumn(name="produto_id")
 	private Produto produto;

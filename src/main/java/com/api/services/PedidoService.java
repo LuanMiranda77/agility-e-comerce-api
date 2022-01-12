@@ -9,6 +9,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.api.domain.Cliente;
 import com.api.domain.ItemPedido;
 import com.api.domain.Pedido;
 import com.api.domain.enuns.EstatusPagamento;
@@ -76,6 +77,10 @@ public class PedidoService {
 	
 	public  List<Pedido> findPedidosByEstatus(Date dtIni, Date dtFin, EstatusPedido estatusPedido){
 		return pedidoQueryImpl.findPedidosByEstatus(dtIni, dtFin, estatusPedido);
+	}
+	
+	public  List<Pedido> findPedidosByCliente(Date dtIni, Date dtFin, Cliente cliente){
+		return pedidoQueryImpl.findPedidosByCliente(dtIni, dtFin, cliente);
 	}
 		
 }

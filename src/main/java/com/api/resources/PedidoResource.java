@@ -1,6 +1,7 @@
 package com.api.resources;
 
 import java.awt.print.Pageable;
+import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.api.domain.Cliente;
 import com.api.domain.Pedido;
 import com.api.domain.TO.DashboardTO;
 import com.api.repository.PedidoRepository;
@@ -89,6 +91,12 @@ public class PedidoResource implements ResourceBase<Pedido, Long>{
 	@PostMapping("/find-data-all")
 	public List<Pedido> findByPedidoData(@RequestBody  Pedido pedido ) {
 		return pedidoRepository.findByDataDeCriacaoBetween(pedido.getDataDeCriacao(), pedido.getDataFechamento());
+	}
+	
+//	Listar Pedido
+	@PostMapping("/find-pedidos-by-cliente")
+	public List<Pedido> findPedidoByCliente(@RequestBody Pedido pedido ) {
+		return pedidoService.findPedidosByCliente(pedido.getDataDeCriacao(), pedido.getDataFechamento(), pedido.getCliente());
 	}
 
 

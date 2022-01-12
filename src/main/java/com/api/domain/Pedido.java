@@ -65,10 +65,10 @@ public class Pedido implements Serializable {
 	@NotNull
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "endereco_id")
-	private EnderecoDeEntrega enderecoDeEntrega;
+	private EnderecoEntrega enderecoEntrega;
 	
 	@NotNull
-	@JsonIgnore
+//	@JsonIgnore
 	@OneToMany(mappedBy = "produto")
 	private List<ItemPedido> produtos = new ArrayList<ItemPedido>();
 	
@@ -81,6 +81,8 @@ public class Pedido implements Serializable {
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private EstatusPedido estatus;
+	
+	private String codigoRastreio;
 	
 	@PrePersist
 	public void setDataCriacao() {

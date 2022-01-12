@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Profile;
 import com.api.domain.Categoria;
 import com.api.domain.Cliente;
 import com.api.domain.Endereco;
-import com.api.domain.EnderecoDeEntrega;
+import com.api.domain.EnderecoEntrega;
 import com.api.domain.ImagemProduto;
 import com.api.domain.ItemPedido;
 import com.api.domain.MercadoLivre;
@@ -116,6 +116,7 @@ public class ConfigAmbienteDev {
 		cliente.setTipo(TipoCliente.ATACADO);
 		cliente.setEnderecos(null);
 		cliente.setSexo(Sexo.M);
+		cliente.setCelular("83996386694");
 		
 		
 
@@ -182,7 +183,7 @@ public class ConfigAmbienteDev {
 				
 			}
 			
-			EnderecoDeEntrega enderecoDeEntrega = new EnderecoDeEntrega();
+			EnderecoEntrega enderecoDeEntrega = new EnderecoEntrega();
 			enderecoDeEntrega.setCep("58500-000");
 			enderecoDeEntrega.setLogradouro("rua da doidera");
 			enderecoDeEntrega.setNumero("32a");
@@ -192,11 +193,12 @@ public class ConfigAmbienteDev {
 		
 			pedido = new Pedido();
 			pedido.setCliente(cliente);
-			pedido.setEnderecoDeEntrega(enderecoDeEntrega);
+			pedido.setEnderecoEntrega(enderecoDeEntrega);
 			pedido.setDataFechamento(date);
 			
 			if(i%2 == 0) {
 				pedido.setEstatus(EstatusPedido.FINALIZADO);
+				pedido.setCodigoRastreio("QI056001109BR");
 			
 			}else {
 				pedido.setEstatus(EstatusPedido.CANCELADO);
@@ -227,7 +229,7 @@ public class ConfigAmbienteDev {
 			pedido.setPagamento(pagamento);
 			pedido.setProdutos(itensPedido);
 			
-			pedido.setValorTotal((produto.getPrecoVarejo().multiply(new BigDecimal(itens.getQuantidadeVendida()))));
+			pedido.setValorTotal((produto.getPrecoVarejo().multiply(new BigDecimal(itens.getQuantidadeVendida()+itens2.getQuantidadeVendida()+itens3.getQuantidadeVendida()))));
 			
 			
 			pedidos.add(pedido);

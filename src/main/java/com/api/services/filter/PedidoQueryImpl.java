@@ -13,6 +13,7 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Service;
 
+import com.api.domain.Cliente;
 import com.api.domain.Pedido;
 import com.api.domain.enuns.EstatusPedido;
 
@@ -33,6 +34,24 @@ public class PedidoQueryImpl {
 		query.select(root);
 		query.where(builder.between(root.get("dataFechamento"), dtIni, dtFin));
 		query.where(builder.equal(root.get("estatus"), estatusPedido));
+		
+		pedidos = manager.createQuery(query).getResultList();
+		
+		return pedidos;
+		
+	} 
+	
+	public List<Pedido> findPedidosByCliente(Date dtIni, Date dtFin, Cliente cliente){
+		
+		List<Pedido> pedidos = new ArrayList<>();
+		CriteriaBuilder builder = manager.getCriteriaBuilder();
+		
+		CriteriaQuery<Pedido> query = builder.createQuery(Pedido.class);
+		Root<Pedido> root = query.from(Pedido.class);
+		
+		query.select(root);
+		query.where(builder.between(root.get("dataFechamento"), dtIni, dtFin));
+		query.where(builder.equal(root.get("cliente"), cliente));
 		
 		pedidos = manager.createQuery(query).getResultList();
 		
