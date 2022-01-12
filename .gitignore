@@ -1,0 +1,57 @@
+
+# Compiled class file
+*.class 
+*.xmi
+variablesAndContainers.dat
+version.ini
+pom.properties
+*.prefs
+misc.xml
+nonChainingJarsCache
+OpenTypeHistory.xml
+logback.1.16.1.20210603-1006.xml
+jarRepositories.xml
+history.version
+javaLikeNames.txt
+org.eclipse.core.resources
+vcs.xml
+QualifiedTypeNameHistory.xml
+runConfigurations.xml
+properties.version
+properties.index
+externalFilesCache
+encodings.xml
+workspace.xml
+MANIFEST.MF
+*target/
+
+# Log file
+*.log
+
+
+# BlueJ files
+*.ctxt
+
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+/target/classes/com/api/config/SecurityOauth2.class
+/target/classes/com/api/domain/Cliente.class
+/target/classes/com/api/domain/Pagamento.class
+/target/classes/com/api/domain/Pedido.class
+/target/classes/com/api/repository/PedidoRepository.class
+/target/classes/com/api/resources/PedidoResource.class
+/target/classes/com/api/services/PedidoService.class

@@ -1,6 +1,7 @@
 package com.api.resources;
 
 import java.awt.print.Pageable;
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -17,12 +18,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.api.domain.Produto;
 import com.api.repository.ProdutoRepository;
 import com.api.services.ProdutoService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 //@autor Jadson Feitosa #29
 
@@ -40,7 +44,13 @@ public class ProdutoResource implements ResourceBase<Produto, Long>{
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Produto> save(@Valid @RequestBody Produto pEntity, HttpServletResponse response) {
-		Produto produtoSalvo = produtoService.save(pEntity);
+		Produto produtoSalvo = null;
+		try {
+			produtoSalvo = produtoService.save(pEntity);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(produtoSalvo);
 	}
 
@@ -63,7 +73,25 @@ public class ProdutoResource implements ResourceBase<Produto, Long>{
 	public ResponseEntity<Produto> findById(@PathVariable Long pID) {
 		return ResponseEntity.ok(produtoRepository.findById(pID).get());
 	}
-
+	
+//	Filtro por ID
+	@GetMapping("/busca/{ptitulo}")
+	public ResponseEntity<List<Produto>> findByTitulo(@PathVariable String ptitulo) {
+		List<Produto> lista = produtoRepository.findProdutoByTituloContains(ptitulo);
+		
+		return ResponseEntity.ok(lista);
+	}
+	
+	@PostMapping("/deleteall")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteAll( @RequestBody List<Produto> pList) {
+		produtoRepository.deleteAll(pList);
+	}
+	
+	@GetMapping("/filter/{tipoFilter}&{dados}")
+	public List<Produto> findFilterProdutos(@PathVariable String tipoFilter, @PathVariable String dados){
+		return produtoService.findFilterProdutos(tipoFilter, dados);
+	}
 	
 	public Page<Produto> findAllPage(Produto pFilter, Pageable pPage) {
 		return null;
@@ -73,5 +101,22 @@ public class ProdutoResource implements ResourceBase<Produto, Long>{
 	public List<Produto> findAllList() {
 		return produtoRepository.findAll();
 	}
+	
+	@RequestMapping(method=RequestMethod.POST, value="/send")
+    public ResponseEntity<String> receiveData(String pessoaJson, MultipartFile foto) {
+
+        ObjectMapper mapper = new ObjectMapper();
+        Produto pessoa = null;
+
+        try {
+            pessoa = mapper.readValue(pessoaJson, Produto.class);
+        } catch (IOException e) {
+            return ResponseEntity.badRequest().body("Não foi possível ler o json");
+        }
+
+        System.out.println(pessoa);
+        System.out.println(foto.getOriginalFilename());
+        return ResponseEntity.ok("Deu certo!");
+    }
 
 }

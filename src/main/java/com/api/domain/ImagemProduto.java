@@ -4,14 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Entity
@@ -21,21 +16,28 @@ public class ImagemProduto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NotNull
-	private String url;
+	private String objectURL;
 	
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name="produto_id")
-	private Produto produto;
+	private String hash;
+	
+	private String nome;
+	
+	private double size;
+	
+	private String tam;
 
-	public ImagemProduto( Long id, String url, Produto produto) {
-		this.id = id;
-		this.url = url;
-		this.produto = produto;
-	}
 	
 	public ImagemProduto() {
 		
+	}
+
+	public ImagemProduto(Long id, String url, String hash, String nome, double size) {
+		super();
+		this.id = id;
+		this.objectURL = url;
+		this.hash = hash;
+		this.nome = nome;
+		this.size = size;
 	}
 	
 	

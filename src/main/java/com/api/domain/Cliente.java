@@ -1,61 +1,69 @@
 package com.api.domain;
 
-
-
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
-import javax.persistence.CollectionTable;
-import javax.persistence.ElementCollection;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Transient;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+import com.api.domain.enuns.Sexo;
 import com.api.domain.enuns.TipoCliente;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
 
+//@autor Jadson Feitosa #40
+
 @Entity
 @Data
-public class Cliente implements Serializable {
-	private static final long serialVersionUID = 1L;
-	
+public class Cliente {
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String nome;
-	private String cpfCnpj;
-	private Integer tipo;
 	
-//	iginorado em ambiente de dev para 1 entrega
-	@Transient
 	@OneToOne
-	@JoinColumn(name = "user_id")
-	private Usuario user;
+	@JoinColumn(name = "usuario_id")
+	private Usuario usuario;
 	
-	@OneToMany(mappedBy = "cliente")
+	@NotBlank
+	@Size(min=11)
+	private String cpfCnpj;
+	
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	private TipoCliente tipo;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "cliente_id")
 	private List<Endereco> enderecos = new ArrayList<>();
 	
-	@ElementCollection
-	@CollectionTable(name = "TELEFONE")
-	private Set<String> telefones = new HashSet<>();
+	private String telefone;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy = "cliente")
-	private List<Pedido> pedidos = new ArrayList<>();
+	private String celular;
 	
-	public Cliente() {
-	}
-
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	private Sexo sexo;
 	
+	@JsonFormat(pattern="yyyy-MM-dd")
+	@Temporal(TemporalType.DATE)
+	private Date dataNascimento;
 
 }
