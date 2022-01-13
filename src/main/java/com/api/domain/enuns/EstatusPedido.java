@@ -8,5 +8,8 @@ public enum EstatusPedido {
 	CANCELADO,
 	NAO_ENVIADO,
 	DEVOLUCAO,
+	ENVIADO,
+	RECEBIDO,
+	AVALIADO
 
 }

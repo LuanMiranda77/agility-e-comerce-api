@@ -84,9 +84,9 @@ public class Pedido implements Serializable {
 	
 	private String codigoRastreio;
 	
-	@PrePersist
-	public void setDataCriacao() {
-		this.dataDeCriacao = UtilsHorasData.subtrair(new Date(), 3);
-	}
+//	@PrePersist
+//	public void setDataCriacao() {
+//		this.dataDeCriacao = UtilsHorasData.subtrair(new Date(), 3);
+//	}
 	
 }

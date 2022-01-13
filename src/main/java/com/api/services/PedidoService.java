@@ -40,7 +40,6 @@ public class PedidoService {
 
 		Pedido pedidoSalvo = pedidoRepository.save(pEntity);
 		
-		
 		for (int i = 0; i < itemPedidos.size(); i++) {
 			pEntity.getProdutos().get(i).setPedido(pedidoSalvo);
 			pEntity.getProdutos().get(i).setDataVenda(pedidoSalvo.getDataFechamento());

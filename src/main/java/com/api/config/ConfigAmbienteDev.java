@@ -127,6 +127,7 @@ public class ConfigAmbienteDev {
 		endereco.setCidade("São paulo");
 		endereco.setBairro("Chibate");
 		endereco.setUf(UF.PB);
+		endereco.setPadrao("S");
 		
 		List<Endereco> enderecos = new ArrayList<Endereco>();
 		enderecos.add(endereco);
@@ -201,7 +202,7 @@ public class ConfigAmbienteDev {
 				pedido.setCodigoRastreio("QI056001109BR");
 			
 			}else {
-				pedido.setEstatus(EstatusPedido.CANCELADO);
+				pedido.setEstatus(EstatusPedido.RECEBIDO);
 			}
 			
 			
