@@ -30,10 +30,8 @@ public class Empresa {
 	@Size( min=18, max = 18)
 	private String CNPJ;
 	
-	@NotBlank
 	private String instEstadual;
 	
-	@NotBlank
 	private String instMunicipal;
 	
 	@NotBlank

@@ -1,7 +1,6 @@
 package com.api.resources;
 
 import java.awt.print.Pageable;
-import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.api.domain.Cliente;
 import com.api.domain.Pedido;
 import com.api.domain.TO.DashboardTO;
 import com.api.repository.PedidoRepository;

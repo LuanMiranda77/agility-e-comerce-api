@@ -4,7 +4,7 @@ package com.api.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.api.domain.CredencialMercadoLivre;
+import com.api.domain.CredencialMercadoPago;
 
 /**
  * 
@@ -13,6 +13,6 @@ import com.api.domain.CredencialMercadoLivre;
  */
 
 @Repository
-public interface MercadoLivreRepository extends JpaRepository<CredencialMercadoLivre, Long>{
+public interface MercadoPagoRepository extends JpaRepository<CredencialMercadoPago, Long>{
 
 }
