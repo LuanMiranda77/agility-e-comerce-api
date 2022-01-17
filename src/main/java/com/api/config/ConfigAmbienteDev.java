@@ -133,14 +133,14 @@ public class ConfigAmbienteDev {
 
 		cliente = clienteRepository.save(cliente);
 
-		CredencialMercadoLivre mercadoLivre = new CredencialMercadoLivre(null, "2128718904902939","V7OLfmpG4XUzYnLhYmDYnK4MO6DvNqdm","Bearer APP_USR-2128718904902939-111423-265756d7711032141c81cde7e554c4ca-669091157", null, null, null,null, null, "S");
+		CredencialMercadoLivre mercadoLivre = new CredencialMercadoLivre(null, "2128718904902939","V7OLfmpG4XUzYnLhYmDYnK4MO6DvNqdm","Bearer APP_USR-2128718904902939-111423-265756d7711032141c81cde7e554c4ca-669091157", null, null, null,null, "TG-61a57573779d3a001ae5c57b-669091157", "S");
 		empresaService.saveCredencialMercadoLivre(mercadoLivre);
 		
 		CredencialMercadoPago mercadoPago = new CredencialMercadoPago(null, "TEST-c7bc4be8-8d01-4ac6-9b7e-ca99d41876b9","2128718904902939","V7OLfmpG4XUzYnLhYmDYnK4MO6DvNqdm", "TEST-2128718904902939-011402-df2ae4462726e85ccec8e03b48838f64-669091157",  "S");
 		empresaService.saveCredencialMercadoPago(mercadoPago);
 
 		for (int i = 0; i < quantDeLoop; i++) {
-			categoria = new Categoria(i + 1l, "categoria-test" + i);
+			categoria = new Categoria(i + 1l, "categoria-test" + i, "", "");
 			categorias.add(categoria);
 
 			BigDecimal b = new BigDecimal(1.8);
@@ -172,7 +172,7 @@ public class ConfigAmbienteDev {
 			produto.getImagens().add(new ImagemProduto(null,
 					"https://images-soubarato.b2w.io/produtos/3029006799/imagens/2020-moda-masculina-minimalista-ultra-fino-relogios-simples-aco-homens-de-negocios-inoxidavel-mesh-belt-relogio-de-quartzo-relogio-masculino/3029006799_1_large.jpg",
 					"1fdfd51fdf", "nome" + i + 1, 55d));
-			produto.getCategorias().add(categoria);
+			produto.setCategoria(categoria);
 			produtos.add(produto);
 			produto.setId(i + 1l);
 

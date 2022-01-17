@@ -50,7 +50,7 @@ public class EmpresaResource implements ResourceBase<Empresa, Long>{
 //	Salvar Credenciasi mercado livre
 	@PostMapping("/cred-livre")
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<String> save(@Valid @RequestBody CredencialMercadoLivre pEntity, HttpServletResponse response){ 
+	public ResponseEntity<String> save(@Valid  @RequestBody CredencialMercadoLivre pEntity, HttpServletResponse response){ 
 		empresaService.saveCredencialMercadoLivre(pEntity);
 		return ResponseEntity.ok("Credenciais salvas");
 	}
@@ -78,6 +78,7 @@ public class EmpresaResource implements ResourceBase<Empresa, Long>{
 	}
 	
 //	Filtro por ID
+	@GetMapping("/{pID}")
 	@Override
 	public ResponseEntity<Empresa> findById(Long pID) {
 		// TODO Auto-generated method stub

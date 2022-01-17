@@ -291,28 +291,7 @@ public class DashboardService {
 		return listaResul;
 	}
 	
-	public List<Categorias> findPedidosByTopDezCategoria(CriteriaBuilder builder, Date dataInicio, Date dataFinal,
-			EstatusPedido estatusPedido) {
-
-		Categorias categoria = new Categorias();
-		
-		List<Categorias> categorias = new ArrayList<>();
-		CriteriaQuery<Categorias> query = builder.createQuery(Categorias.class);
-		Root<ItemPedido> root = query.from(ItemPedido.class);
-
-		query.multiselect(root.get("produto").get("titulo"),  builder.count(root));
-		query.where(builder.between(root.get("dataVenda"), dataInicio, dataFinal));
-		query.groupBy(root.get("produto").get("titulo"));
-		query.orderBy(builder.desc(builder.count(root)));
-
-		categorias = manager.createQuery(query).setMaxResults(10).getResultList();
-		
-		if (categoria.getValor() == null) {
-			categoria.setValor(0l);
-		}
-
-		return categorias;
-	}
+	
 	
 	public List<Number> findTotalPedidoByTipoPagamentos(CriteriaBuilder builder, Date dataInicio,
 			Date dataFinal, EstatusPedido estatusPeido) {
@@ -380,6 +359,29 @@ public class DashboardService {
 		});;
 
 		return clientes;
+	}
+	
+	public List<Categorias> findPedidosByTopDezCategoria(CriteriaBuilder builder, Date dataInicio, Date dataFinal,
+			EstatusPedido estatusPedido) {
+
+		Categorias categoria = new Categorias();
+		
+		List<Categorias> categorias = new ArrayList<>();
+		CriteriaQuery<Categorias> query = builder.createQuery(Categorias.class);
+		Root<ItemPedido> root = query.from(ItemPedido.class);
+
+		query.multiselect(root.get("produto").get("categoria").get("nome"),  builder.count(root));
+		query.where(builder.between(root.get("dataVenda"), dataInicio, dataFinal));
+		query.groupBy(root.get("produto").get("categoria").get("nome"));
+		query.orderBy(builder.desc(builder.count(root)));
+
+		categorias = manager.createQuery(query).setMaxResults(10).getResultList();
+		
+		if (categoria.getValor() == null) {
+			categoria.setValor(0l);
+		}
+
+		return categorias;
 	}
 
 

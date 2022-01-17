@@ -10,6 +10,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import com.api.domain.enuns.UF;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import lombok.Data;
 
@@ -20,6 +22,7 @@ import lombok.Data;
 
 @Entity
 @Data
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Empresa {
 	
 	@Id
@@ -28,34 +31,34 @@ public class Empresa {
 	
 	@NotBlank
 	@Size( min=18, max = 18)
-	private String CNPJ;
+	private String cnpj;
 	
 	private String instEstadual;
 	
 	private String instMunicipal;
 	
-	@NotBlank
+	
 	private String razaoSocial;
 	
-	@NotBlank
+	
 	private String nomeFantasia;
 	
-	@NotBlank
+	
     private String logradouro;
 	
-	@NotBlank
+	
 	private String numero;
 	
-	@NotBlank
+	
 	private String complemento;
 	
-	@NotBlank
+	
 	private String bairro;
 	
-	@NotBlank
+	
 	private String cidade;
 	
-	@NotBlank
+	
 	private String cep;
 
 	@Enumerated(EnumType.STRING)
@@ -63,19 +66,19 @@ public class Empresa {
 	
 //	contatos--------------------------------------
 	
-	@NotBlank
+	
 	private String emailPrincipal;
 	
-	@NotBlank
+	
 	private String emailSegundario;
 	
-	@NotBlank
+	
 	private String celular1;
 	
-	@NotBlank
+	
 	private String celular2;
 	
-	@NotBlank
+	
 	private String foneFixo;
 	
 	
