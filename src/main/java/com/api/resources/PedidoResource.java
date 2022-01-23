@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.domain.Pedido;
 import com.api.domain.TO.DashboardTO;
+import com.api.domain.enuns.EstatusPedido;
 import com.api.repository.PedidoRepository;
 import com.api.services.DashboardService;
 import com.api.services.PedidoService;
@@ -56,6 +57,13 @@ public class PedidoResource implements ResourceBase<Pedido, Long>{
 	public ResponseEntity<Pedido> update(@Valid Long pID, @Valid Pedido pEntity) {
 		Pedido pedidoSalvo = pedidoService.update(pEntity);
 		return ResponseEntity.ok(pedidoSalvo);
+	}
+	
+//	Atualizar pedido
+	@PutMapping("/status/{id}/{code}/{status}")
+	public ResponseEntity<Pedido> updateStatus(@PathVariable Long id, @PathVariable String code, @PathVariable EstatusPedido status) {
+		pedidoRepository.updateStatus(id,status, code);
+		return ResponseEntity.ok(null);
 	}
 
 //	Deletar Pedido
@@ -95,6 +103,12 @@ public class PedidoResource implements ResourceBase<Pedido, Long>{
 	@PostMapping("/find-pedidos-by-cliente")
 	public List<Pedido> findPedidoByCliente(@RequestBody Pedido pedido ) {
 		return pedidoService.findPedidosByCliente(pedido.getDataDeCriacao(), pedido.getDataFechamento(), pedido.getCliente());
+	}
+	
+//	Listar Pedido
+	@PostMapping("/find-pedidos-by-cliente-status")
+	public List<Pedido> findPedidoByClienteStatus(@RequestBody Pedido pedido ) {
+		return pedidoService.findPedidosByClienteStatus(pedido.getDataDeCriacao(), pedido.getDataFechamento(), pedido.getCliente(), pedido.getEstatus());
 	}
 
 

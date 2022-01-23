@@ -81,5 +81,9 @@ public class PedidoService {
 	public  List<Pedido> findPedidosByCliente(Date dtIni, Date dtFin, Cliente cliente){
 		return pedidoQueryImpl.findPedidosByCliente(dtIni, dtFin, cliente);
 	}
+	
+	public  List<Pedido> findPedidosByClienteStatus(Date dtIni, Date dtFin, Cliente cliente, EstatusPedido status){
+		return pedidoQueryImpl.findPedidosByClienteStatus(dtIni, dtFin, cliente, status);
+	}
 		
 }

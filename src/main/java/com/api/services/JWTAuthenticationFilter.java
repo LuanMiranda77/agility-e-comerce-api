@@ -32,9 +32,7 @@ public class JWTAuthenticationFilter extends GenericFilterBean {
 		} catch (ExpiredJwtException e) {
 		    System.out.println(" Token expirado "+e.getMessage());
 //		    throw new TokenExpiradoException();
-		}  catch(Exception e){
-		    System.out.println(" Some other exception in JWT parsing ");
-		}
+		} 
 	}
 
 }

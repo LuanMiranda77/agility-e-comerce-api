@@ -140,7 +140,7 @@ public class ConfigAmbienteDev {
 		empresaService.saveCredencialMercadoPago(mercadoPago);
 
 		for (int i = 0; i < quantDeLoop; i++) {
-			categoria = new Categoria(i + 1l, "categoria-test" + i, "", "");
+			categoria = new Categoria(i + 1l, "categoria-test" + i, "MLB271599", "MLB442408");
 			categorias.add(categoria);
 
 			BigDecimal b = new BigDecimal(1.8);
@@ -212,7 +212,7 @@ public class ConfigAmbienteDev {
 				pedido.setCodigoRastreio("QI056001109BR");
 
 			} else {
-				pedido.setEstatus(EstatusPedido.RECEBIDO);
+				pedido.setEstatus(EstatusPedido.CANCELADO);
 			}
 
 			ItemPedido itens = new ItemPedido();
