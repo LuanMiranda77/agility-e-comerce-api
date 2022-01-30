@@ -20,7 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.api.domain.Pedido;
 import com.api.domain.Usuario;
+import com.api.domain.enuns.EstatusPedido;
+import com.api.domain.enuns.EstatusUsuario;
 import com.api.repository.UsuarioRepository;
 import com.api.resources.exception.LoginException;
 import com.api.services.UsuarioService;
@@ -86,6 +89,13 @@ public class UsuarioResource implements ResourceBase<Usuario, Long> {
 	public ResponseEntity<Usuario> update(@PathVariable Long pID, @Valid @RequestBody Usuario pEntity) {
 		Usuario usuarioSalvo = usuarioService.update(pEntity);
 		return ResponseEntity.ok(usuarioSalvo);
+	}
+	
+//	Atualizar status
+	@PutMapping("/status/{id}/{status}")
+	public ResponseEntity<Usuario> updateStatus(@PathVariable Long id, @PathVariable EstatusUsuario status) {
+		usuarioRepository.updateStatus(id,status);
+		return ResponseEntity.ok(null);
 	}
 
 //	Deletar Usuario
