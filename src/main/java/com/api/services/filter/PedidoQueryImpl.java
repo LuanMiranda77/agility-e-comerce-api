@@ -19,46 +19,63 @@ import com.api.domain.enuns.EstatusPedido;
 
 @Service
 public class PedidoQueryImpl {
-	
+
 	@PersistenceContext
 	private EntityManager manager;
-	
-	public List<Pedido> findPedidosByEstatus(Date dtIni, Date dtFin, EstatusPedido estatusPedido){
-		
+
+	public List<Pedido> findPedidosByEstatus(Date dtIni, Date dtFin, EstatusPedido estatusPedido) {
+
 		List<Pedido> pedidos = new ArrayList<>();
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
-		
+
 		CriteriaQuery<Pedido> query = builder.createQuery(Pedido.class);
 		Root<Pedido> root = query.from(Pedido.class);
-		
+
 		query.select(root);
 		query.where(builder.between(root.get("dataFechamento"), dtIni, dtFin));
 		query.where(builder.equal(root.get("estatus"), estatusPedido));
-		
+
 		pedidos = manager.createQuery(query).getResultList();
-		
+
 		return pedidos;
-		
-	} 
-	
-	public List<Pedido> findPedidosByCliente(Date dtIni, Date dtFin, Cliente cliente){
-		
+
+	}
+
+	public List<Pedido> findPedidosByCliente(Date dtIni, Date dtFin, Cliente cliente) {
+
 		List<Pedido> pedidos = new ArrayList<>();
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
-		
+
 		CriteriaQuery<Pedido> query = builder.createQuery(Pedido.class);
 		Root<Pedido> root = query.from(Pedido.class);
-		
+
 		query.select(root);
 		query.where(builder.between(root.get("dataFechamento"), dtIni, dtFin));
 		query.where(builder.equal(root.get("cliente"), cliente));
-		
+
 		pedidos = manager.createQuery(query).getResultList();
-		
+
 		return pedidos;
-		
-	} 
-	
-	
+
+	}
+
+	public List<Pedido> findPedidosByClienteStatus(Date dtIni, Date dtFin, Cliente cliente, EstatusPedido status) {
+
+		List<Pedido> pedidos = new ArrayList<>();
+		CriteriaBuilder builder = manager.getCriteriaBuilder();
+
+		CriteriaQuery<Pedido> query = builder.createQuery(Pedido.class);
+		Root<Pedido> root = query.from(Pedido.class);
+
+		query.select(root);
+		query.where(builder.between(root.get("dataFechamento"), dtIni, dtFin));
+		query.where(builder.equal(root.get("cliente"), cliente));
+		query.where(builder.equal(root.get("estatus"), status));
+
+		pedidos = manager.createQuery(query).getResultList();
+
+		return pedidos;
+
+	}
 
 }

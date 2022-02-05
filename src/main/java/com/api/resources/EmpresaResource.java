@@ -1,7 +1,6 @@
 package com.api.resources;
 
 import java.awt.print.Pageable;
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -18,15 +17,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
+import com.api.domain.CredencialMercadoLivre;
+import com.api.domain.CredencialMercadoPago;
 import com.api.domain.Empresa;
 import com.api.repository.EmpresaRepository;
 import com.api.services.EmpresaService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 //@autor Jadson Feitosa #29
 
@@ -35,24 +33,40 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class EmpresaResource implements ResourceBase<Empresa, Long>{
 	
 	@Autowired
-	private EmpresaService EmpresaService;
+	private EmpresaService empresaService;
 	
 	@Autowired
-	private EmpresaRepository EmpresaRepository;
+	private EmpresaRepository empresaRepository;
 
 //	Salvar Empresa
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Empresa> save(@Valid @RequestBody Empresa pEntity, HttpServletResponse response) {
 		Empresa EmpresaSalvo = null;
-		EmpresaSalvo = EmpresaService.save(pEntity);
+		EmpresaSalvo = empresaService.save(pEntity);
 		return ResponseEntity.status(HttpStatus.CREATED).body(EmpresaSalvo);
+	}
+	
+//	Salvar Credenciasi mercado livre
+	@PostMapping("/cred-livre")
+	@ResponseStatus(HttpStatus.CREATED)
+	public ResponseEntity<String> save(@Valid  @RequestBody CredencialMercadoLivre pEntity, HttpServletResponse response){ 
+		empresaService.saveCredencialMercadoLivre(pEntity);
+		return ResponseEntity.ok("Credenciais salvas");
+	}
+	
+//	Salvar Credenciasi mercado livre
+	@PostMapping("/cred-pago")
+	@ResponseStatus(HttpStatus.CREATED)
+	public ResponseEntity<String> save(@Valid @RequestBody CredencialMercadoPago pEntity, HttpServletResponse response){ 
+		empresaService.saveCredencialMercadoPago(pEntity);
+		return ResponseEntity.ok("Credenciais salvas");
 	}
 
 //	Atualizar entidade 
 	@PutMapping("/{pID}")
 	public ResponseEntity<Empresa> update(@Valid @PathVariable Long pID, @RequestBody Empresa pEntity) {
-		Empresa EmpresaSalvo = EmpresaService.update(pID, pEntity);
+		Empresa EmpresaSalvo = empresaService.update(pID, pEntity);
 		return ResponseEntity.ok(EmpresaSalvo);
 	}
 
@@ -60,24 +74,37 @@ public class EmpresaResource implements ResourceBase<Empresa, Long>{
 	@DeleteMapping("/{pID}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable Long pID) {
-		EmpresaRepository.deleteById(pID);
+		empresaRepository.deleteById(pID);
 	}
-
+	
 //	Filtro por ID
 	@GetMapping("/{pID}")
-	public ResponseEntity<Empresa> findById(@PathVariable Long pID) {
-		return ResponseEntity.ok(EmpresaRepository.findById(pID).get());
+	@Override
+	public ResponseEntity<Empresa> findById(Long pID) {
+		// TODO Auto-generated method stub
+		return ResponseEntity.ok(empresaRepository.findById(pID).get());
+	}
+
+
+	@GetMapping("/get-livre/{pID}")
+	public ResponseEntity<CredencialMercadoLivre> findByIdCredencialLivre(@PathVariable Long pID) {
+		return ResponseEntity.ok(empresaService.findCredencialMercadoLivre(pID));
+	}
+	
+	@GetMapping("/get-pago/{pID}")
+	public ResponseEntity<CredencialMercadoPago> findByIdCredencialPago(@PathVariable Long pID) {
+		return ResponseEntity.ok(empresaService.findCredencialMercadoPago(pID));
 	}
 	
 	@PostMapping("/deleteall")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteAll( @RequestBody List<Empresa> pList) {
-		EmpresaRepository.deleteAll(pList);
+		empresaRepository.deleteAll(pList);
 	}
 
 	@GetMapping
 	public List<Empresa> findAllList() {
-		return EmpresaRepository.findAll();
+		return empresaRepository.findAll();
 	}
 
 	@Override
@@ -85,5 +112,7 @@ public class EmpresaResource implements ResourceBase<Empresa, Long>{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 }

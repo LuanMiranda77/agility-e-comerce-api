@@ -15,6 +15,7 @@ import com.api.resources.exception.LoginException;
 import com.api.services.exceptions.EmailNotExistException;
 import com.api.services.exceptions.ItemExistException;
 import com.api.services.exceptions.PagamentoNaoAprovadoException;
+import com.api.services.exceptions.TokenExpiradoException;
 import com.api.services.exceptions.UsuarioExistException;
 
 @ControllerAdvice
@@ -62,6 +63,14 @@ public class EntityException {
 	@ExceptionHandler(PagamentoNaoAprovadoException.class)
 	public ResponseEntity<Object> handItemExist(PagamentoNaoAprovadoException ex){
 		mensagemUsuario = menssageSourse.getMessage("pagamentoNaoAprovado.erro", null, LocaleContextHolder.getLocale());
+		mensagemDesenvolvedor = ex.toString();
+		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+		return ResponseEntity.badRequest().body(erros);		
+	}
+	
+	@ExceptionHandler(TokenExpiradoException.class)
+	public ResponseEntity<Object> handItemExist(TokenExpiradoException ex){
+		mensagemUsuario = menssageSourse.getMessage("tokenexpirado.erro", null, LocaleContextHolder.getLocale());
 		mensagemDesenvolvedor = ex.toString();
 		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
 		return ResponseEntity.badRequest().body(erros);		

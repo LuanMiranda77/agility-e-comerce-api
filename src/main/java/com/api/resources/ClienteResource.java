@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.domain.Cliente;
+import com.api.domain.Usuario;
+import com.api.domain.enuns.EstatusUsuario;
+import com.api.domain.enuns.TipoCliente;
 import com.api.repository.ClienteRepository;
 import com.api.repository.UsuarioRepository;
 import com.api.services.ClienteService;
@@ -51,6 +54,13 @@ public class ClienteResource implements ResourceBase<Cliente, Long>{
 	public ResponseEntity<Cliente> update(@Valid Long pID, Cliente pEntity) {
 		Cliente clienteSalvo = clienteService.update(pEntity);
 		return ResponseEntity.ok(clienteSalvo );
+	}
+	
+//	Atualizar status
+	@PutMapping("/tipo/{id}/{tipo}")
+	public ResponseEntity<Usuario> updateStatus(@PathVariable Long id, @PathVariable TipoCliente tipo) {
+		clienteRepository.updateStatus(id,tipo);
+		return ResponseEntity.ok(null);
 	}
 
 //	Deletar Cliente

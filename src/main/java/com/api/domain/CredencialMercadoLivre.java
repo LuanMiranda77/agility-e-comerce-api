@@ -5,15 +5,25 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * @author Luan Miranda
+ * @Demanda AE-67
+ */
 
 @Entity
 @Data
 @AllArgsConstructor
-public class MercadoLivre {
+@NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class CredencialMercadoLivre {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -41,6 +51,9 @@ public class MercadoLivre {
 	
 
 	private String refresh_token;
+	
+	@NotBlank
+	private String status;
 	
 
 }

@@ -14,7 +14,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -56,19 +58,17 @@ public class Produto {
 	private Integer estrelas;
 	
 	private String idML;
+	
+	private String status="active"; //paused ou active
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="produto_id")
 	private List<ImagemProduto> imagens = new ArrayList<>();
 	
-	
-//	@JsonIgnore
-	@ManyToMany
-	@JoinTable(name = "PRODUTO_CATEGORIA",
-			   joinColumns = @JoinColumn(name = "produto_id"),
-			   inverseJoinColumns = @JoinColumn(name = "categoria_id")
-	)
-	private List<Categoria> categorias = new ArrayList<>();
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name="categoria_id")
+	private Categoria categoria;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "pedido")
