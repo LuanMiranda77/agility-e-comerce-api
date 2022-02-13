@@ -23,7 +23,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.api.domain.ItemMarkeplace;
+import com.api.domain.Pedido;
 import com.api.domain.Produto;
+import com.api.domain.enuns.EstatusPedido;
+import com.api.repository.ItemMarketRepository;
 import com.api.repository.ProdutoRepository;
 import com.api.services.ProdutoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -39,6 +43,10 @@ public class ProdutoResource implements ResourceBase<Produto, Long>{
 	
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private ItemMarketRepository itemMarkeplaceRepository;
+
 
 //	Salvar Produto
 	@PostMapping
@@ -47,6 +55,21 @@ public class ProdutoResource implements ResourceBase<Produto, Long>{
 		Produto produtoSalvo = null;
 		try {
 			produtoSalvo = produtoService.save(pEntity);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ResponseEntity.status(HttpStatus.CREATED).body(produtoSalvo);
+	}
+	
+//	Salvar item Markewt
+	@PostMapping("/item-market")
+	@ResponseStatus(HttpStatus.CREATED)
+	public ResponseEntity<ItemMarkeplace> saveItemMarket(@Valid @RequestBody ItemMarkeplace pEntity, HttpServletResponse response) {
+		ItemMarkeplace produtoSalvo = null;
+		try {
+			produtoRepository.updateIDMarket(pEntity.getProduto().getId(), pEntity.getIdMarkeplace());
+			produtoSalvo = itemMarkeplaceRepository.save(pEntity);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -87,6 +110,14 @@ public class ProdutoResource implements ResourceBase<Produto, Long>{
 	public void deleteAll( @RequestBody List<Produto> pList) {
 		produtoRepository.deleteAll(pList);
 	}
+	
+//	Atualizar pedido
+	@PutMapping("/update-market/{id}/{code}")
+	public ResponseEntity<Pedido> updateStatus(@PathVariable Long id, @PathVariable String code) {
+		produtoRepository.updateIDMarket(id, code);
+		return ResponseEntity.ok(null);
+	}
+
 	
 	@GetMapping("/filter/{tipoFilter}&{dados}")
 	public List<Produto> findFilterProdutos(@PathVariable String tipoFilter, @PathVariable String dados){

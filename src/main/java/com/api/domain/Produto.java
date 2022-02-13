@@ -57,7 +57,7 @@ public class Produto {
 	
 	private Integer estrelas;
 	
-	private String idML;
+	private String idMarketplace;
 	
 	private String status="active"; //paused ou active
 
