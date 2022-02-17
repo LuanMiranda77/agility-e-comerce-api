@@ -37,7 +37,6 @@ public class PedidoService {
 	
 	public Pedido save(Pedido pEntity) {
 		List<ItemPedido>itemPedidos = pEntity.getProdutos();
-
 		Pedido pedidoSalvo = pedidoRepository.save(pEntity);
 		
 		for (int i = 0; i < itemPedidos.size(); i++) {

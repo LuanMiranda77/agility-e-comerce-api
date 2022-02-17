@@ -124,6 +124,11 @@ public class ProdutoResource implements ResourceBase<Produto, Long>{
 		return produtoService.findFilterProdutos(tipoFilter, dados);
 	}
 	
+	@GetMapping("/categoria/{id}")
+	public List<Produto> findProdutosByCategoria(@PathVariable Long id){
+		return produtoRepository.findProdutoByCategoria(id);
+	}
+	
 	public Page<Produto> findAllPage(Produto pFilter, Pageable pPage) {
 		return null;
 	}

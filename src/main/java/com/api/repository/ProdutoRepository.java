@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.api.domain.Categoria;
 import com.api.domain.Produto;
 import com.api.domain.enuns.EstatusPedido;
 
@@ -23,6 +24,11 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 	public boolean existsByCodigoBarras(String codigoBarras);
 	
 	public List<Produto> findProdutoByTituloContains(String title);
+	
+	@Transactional
+	@Modifying(clearAutomatically = true)
+	@Query("from Produto produto where produto.categoria.id =:id")
+	public List<Produto> findProdutoByCategoria(@Param("id") Long id);
 	
 	@Transactional
 	@Modifying(clearAutomatically = true)

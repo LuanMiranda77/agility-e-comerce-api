@@ -11,9 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.api.utils.UtilsHorasData;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -45,6 +47,11 @@ public class ItemPedido implements Serializable {
 	private Date dataVenda;
 
 	private int quantidadeVendida;
+	
+	@PrePersist
+	private void setDataVenda() {
+		this.dataVenda = UtilsHorasData.subtrair(new Date(), 3);
+	}
 	
 
 

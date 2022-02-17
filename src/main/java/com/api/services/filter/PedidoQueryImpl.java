@@ -14,6 +14,7 @@ import javax.persistence.criteria.Root;
 import org.springframework.stereotype.Service;
 
 import com.api.domain.Cliente;
+import com.api.domain.ItemPedido;
 import com.api.domain.Pedido;
 import com.api.domain.enuns.EstatusPedido;
 
@@ -36,7 +37,7 @@ public class PedidoQueryImpl {
 		query.where(builder.equal(root.get("estatus"), estatusPedido));
 
 		pedidos = manager.createQuery(query).getResultList();
-
+		
 		return pedidos;
 
 	}
@@ -54,6 +55,17 @@ public class PedidoQueryImpl {
 		query.where(builder.equal(root.get("cliente"), cliente));
 
 		pedidos = manager.createQuery(query).getResultList();
+		
+		pedidos.forEach(e -> { 
+			
+			CriteriaQuery<ItemPedido> query1 = builder.createQuery(ItemPedido.class);
+			Root<ItemPedido> root2 = query1.from(ItemPedido.class);
+			query1.select(root2);
+			query1.where(builder.equal(root2.get("pedido"), e));
+			List<ItemPedido> itens = manager.createQuery(query1).getResultList();
+		
+			e.setProdutos(itens);
+		});
 
 		return pedidos;
 
